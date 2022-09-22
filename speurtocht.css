@@ -7,14 +7,16 @@ button,
 input {
   font-family: 'Source Sans Pro';
   padding: 0;
-  margin: 0;
   color: #fff;
   text-decoration: none;
-  text-align: center;
 }
 body {
   background: linear-gradient(#9c27b0, #3f51b5);
   background-attachment: fixed;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  overflow-x: hidden;
 }
 .content {
   max-width: 1080px;
@@ -35,15 +37,35 @@ body {
   font-size: 28px;
   color: #fff;
 }
+/* Page title */
+.titleBox {
+  width: 100%;
+  margin: 24px 0;
+}
+.titleBox .pageTitle {
+  font-family: 'Source Sans Pro';
+  font-weight: bold;
+  text-align: center;
+}
 
 /*========================================================================
   Aanmelden
 /*=======================================================================*/
 
-.titleBox {
-  width: 100%;
+
+/*========================================================================
+  Beheerderpaneel
+/*=======================================================================*/
+.box {
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 38px
 }
-.titleBox .pageTitle {
-  font-family: 'Source Sans Pro';
+.box .createSPT {
   font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  margin: 10px;
+  text-align: center
 }
