@@ -12,6 +12,7 @@
   <input class="login-register-form" type="password" id="password" placeholder="Wachtwoord"><br><br>
   <input class="login-register-btn" type="submit" value="AANMELDEN">
 </form> 
+<b>This text is bold</b> 
 </div>
 
 </body>
