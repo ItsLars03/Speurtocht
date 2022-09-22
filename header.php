@@ -14,5 +14,4 @@
 <body>
     <div class="headerBox">
         <h1 class="headerTitle"> Speurtocht </h1>
-        
     </div>
