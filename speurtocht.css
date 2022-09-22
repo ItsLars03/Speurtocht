@@ -47,3 +47,35 @@ body {
   font-family: 'Source Sans Pro';
   font-weight: bold;
 }
+
+/*========================================================================
+  Inloggen & Registreren form
+/*=======================================================================*/
+form {
+  margin: 0 auto;
+  margin-top: 30px;
+  color: white;
+  text-align: center;
+}
+::placeholder{
+  color: gray
+}
+.login-register-btn {
+  background-color: transparent;
+  color: white;
+  padding: 10px 80px;
+  font-size: 16px;
+  border-style: solid;
+  border-radius: 80px;
+  cursor: pointer
+}
+.login-register-form {
+  padding: 10px 40px;
+  color: black;
+}
+.login-register-btn:hover {
+  background: white;
+  color: transparent;
+  color: #5248b3
+;
+}
