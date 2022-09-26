@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId        Int             @id @default(autoincrement())
+  nickname      String?         @db.VarChar(50)
+  email         String?         @db.VarChar(64)
+  password      String?         @db.VarChar(32)
+  
+  scavengerHunt scavengerHunt[]
+}
+
+model scavengerHunt {
+  scavengerHuntId Int         @id @default(autoincrement())
+  ownerId         Int
+  name            String      @db.VarChar(32)
+  status          String      @db.VarChar(64)
+  
+  User            User        @relation(fields: [ownerId], references: [userId])
+  
+  players         players[]
+  questions       questions[]
+}
+
+model questions {
+  questionId      Int           @id @default(autoincrement())
+  scavengerHuntId Int
+  question        String        @db.VarChar(500)
+  type            String        @db.VarChar(64)
+  
+  scavengerHunt   scavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
+  
+  answers         answers[]
+}
+
+model answers {
+  answerId   Int    @id @default(autoincrement())
+  questionId Int
+  playerId   Int
+  answer     String @db.VarChar(500)
+
+  questions questions @relation(fields: [questionId], references: [questionId])
+  players   players   @relation(fields: [playerId], references: [playerId])
+}
+
+model players {
+  playerId        Int    @id @default(autoincrement())
+  scavengerHuntId Int
+  name            String @db.VarChar(32)
+  email           String @db.VarChar(64)
+
+  scavengerHunt scavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
+
+  answers answers[]
+}
