@@ -8,54 +8,54 @@ datasource db {
 }
 
 model User {
-  userId        Int             @id @default(autoincrement())
-  nickname      String?         @db.VarChar(50)
-  email         String?         @db.VarChar(64)
-  password      String?         @db.VarChar(32)
-  
-  scavengerHunt scavengerHunt[]
+  userId   Int     @id @default(autoincrement())
+  nickname String? @db.VarChar(50) 
+  email    String? @db.VarChar(64) @unique
+  password String? @db.VarChar(32)
+
+  scavengerHunt ScavengerHunt[]
 }
 
-model scavengerHunt {
-  scavengerHuntId Int         @id @default(autoincrement())
+model ScavengerHunt {
+  scavengerHuntId Int    @id @default(autoincrement())
   ownerId         Int
-  name            String      @db.VarChar(32)
-  status          String      @db.VarChar(64)
-  
-  User            User        @relation(fields: [ownerId], references: [userId])
-  
-  players         players[]
-  questions       questions[]
+  name            String @db.VarChar(32)
+  status          String @db.VarChar(64)
+
+  User User @relation(fields: [ownerId], references: [userId])
+
+  players   Players[]
+  questions Questions[]
 }
 
-model questions {
-  questionId      Int           @id @default(autoincrement())
+model Questions {
+  questionId      Int    @id @default(autoincrement())
   scavengerHuntId Int
-  question        String        @db.VarChar(500)
-  type            String        @db.VarChar(64)
-  
-  scavengerHunt   scavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
-  
-  answers         answers[]
+  question        String @db.VarChar(500)
+  type            String @db.VarChar(64)
+
+  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
+
+  answers Answers[]
 }
 
-model answers {
+model Answers {
   answerId   Int    @id @default(autoincrement())
   questionId Int
   playerId   Int
   answer     String @db.VarChar(500)
 
-  questions questions @relation(fields: [questionId], references: [questionId])
-  players   players   @relation(fields: [playerId], references: [playerId])
+  questions Questions @relation(fields: [questionId], references: [questionId])
+  players   Players   @relation(fields: [playerId], references: [playerId])
 }
 
-model players {
+model Players {
   playerId        Int    @id @default(autoincrement())
   scavengerHuntId Int
   name            String @db.VarChar(32)
   email           String @db.VarChar(64)
 
-  scavengerHunt scavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
+  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
 
-  answers answers[]
+  answers Answers[]
 }
