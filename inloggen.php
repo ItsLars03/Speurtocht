@@ -29,8 +29,17 @@
 
         makeRequest(`${BACKEND}/login`, "POST", data)
             .then((res) => {
-                console.log(res)
+                if (res.success) {
+                    if (res.statusCode == 200) {
+                        //TODO send to next page? -- handle success
+                    } else {
+                        //server side error.
+                    }
+                } else {
+                    // client- / server side error.
+                }
             }).catch((e) => {
+                //handle error (something has gone wrong.)
                 console.error("this!", e.message)
             })
     }

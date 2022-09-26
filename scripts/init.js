@@ -17,7 +17,13 @@ const makeRequest = async (uri, method, data) => {
             },
             body: data == null ? null : JSON.stringify(data)
         })
-        return response.ok ? response.json : Promise.reject({ statusCode: response.status, message: "Something went wrong with the request." })
+        try {
+            const json = await response.json()
+            return { success: true, statusCode: response.status, response: json }
+        } catch (error) {
+            return response.ok ? { success: false, statusCode: response.status, message: "Something went wrong while handling the request." } :
+                { success: false, statusCode: response.status, message: "Something went wrong with the server." }
+        }
     } catch (error) {
         return Promise.reject(error)
     }
