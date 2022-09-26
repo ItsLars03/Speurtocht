@@ -1,5 +1,6 @@
 import { Router } from "express";
 import login from './login/index.js'
+import scavengerhunt from './scavengerHunt/index.js'
 
 const router = Router()
 
@@ -13,5 +14,6 @@ router.post("/test", (req, res) => {
 })
 
 router.use("/login", login)
+router.use("/scavengerhunt", scavengerhunt)
 
 export default router

@@ -45,6 +45,11 @@
     }
 </script>
 
+<?php
+echo "<script>makeRequest(`${BACKEND}/test`, 'POST', {}).then(res => console.log(res))</script>"
+
+?>
+
 </body>
 
 </html>
