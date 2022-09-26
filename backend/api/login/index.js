@@ -9,19 +9,21 @@ router.post("/", async (req, res) => {
 
     const { password, email } = req.body
 
-    await prisma.user.create({
-        data: {
-            nickname: "test",
-            password,
-            email
-        }
+    try {
+        const user = await prisma.user.create({
+            data: {
+                nickname: "test",
+                password,
+                email
+            }
 
-    })
+        })
+    } catch (error) {
 
-    const allUsers = await prisma.user.findMany({
-    })
+    }
 
-    console.dir(allUsers, { depth: null })
+
+    // console.dir(allUsers, { depth: null })
 
 
     console.log("coming in from /login body ->", req.body)
