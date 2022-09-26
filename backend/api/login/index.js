@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 
         })
     } catch (error) {
-
+        console.error(error)
     }
 
 
