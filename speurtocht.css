@@ -4,7 +4,8 @@ h3,
 p,
 a,
 button,
-input {
+input,
+label {
   font-family: 'Source Sans Pro';
   padding: 0;
   color: #fff;
@@ -31,7 +32,7 @@ body {
   font-family: 'Black Han Sans';
   font-weight: bold;
   text-align: center;
-  font-size: 28px;
+  font-size: 44px;
   color: #fff;
 }
 /* Page title */
@@ -53,13 +54,58 @@ body {
 /*========================================================================
   Beheerderpaneel
 /*=======================================================================*/
-.box {
+.createBox {
   width: max-content;
   margin: 0 auto;
   margin-top: 38px
 }
-.box .createSPT {
+.creatingBox {
+  width: max-content;
+  margin: 0 auto;
+  display: none;
+}
+.creatingBox h2 {
+  text-align: center;
+}
+form .inputField {
+  text-align: center;
+  color: #000;
+  font-size: 16px;
+  padding: 6px 0px;
+  margin-bottom: 20px;
+  width: 240px;
+  display: block; /*///////*/
+  margin: 12px auto;
+}
+input[type="checkbox"] {
+  border-radius: 18px;
+}
+.buttonForm {
+  cursor: pointer;
+  margin: 20px 0px;
   font-weight: bold;
+  font-size: 16px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  background-color: transparent;
+}
+body Form .extra {
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+  text-align: left !important;
+}
+.createBox .createSPT {
+  font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 /*========================================================================

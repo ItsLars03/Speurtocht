@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="speurtocht.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="speurtocht.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Black Han Sans' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
     <script src="https://cdn.socket.io/4.5.2/socket.io.js"></script>
