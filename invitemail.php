@@ -1,4 +1,3 @@
-
 <?php
 	error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 	ini_set('display_errors', 1);
@@ -10,9 +9,9 @@
  	 $recoverpwlink = "".$link."/forgot_password_reset.php?key=".$key."&email=".$email_reg;
 
 	//Sender Info
-	 $sender_name = "planjegesprek@lesonline.nu"; //naam van de 
- 	 $sender_email = "planjegesprek@lesonline.nu";
-	 $sender_password = "homgmcs7";
+	 $sender_name = "p11k3t3@lesonline.nu"; //naam van de 
+ 	 $sender_email = "p11k3t3@lesonline.nu";
+	 $sender_password = "e7mUNBssyG";
 	
 	 $mail_subject = "Deelnemen aan de speurtocht";
 	 $message = '<html>Zet hier het bericht</html>'; 
