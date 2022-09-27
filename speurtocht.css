@@ -11,6 +11,9 @@ label {
   color: #fff;
   text-decoration: none;
 }
+textarea {
+  resize: none;
+}
 body {
   background: linear-gradient(#9c27b0, #3f51b5);
   background-attachment: fixed;
@@ -54,6 +57,22 @@ body {
 /*========================================================================
   Beheerderpaneel
 /*=======================================================================*/
+.speurtochtenBox {
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  width: max-content;
+  margin: 0 auto;
+}
+.speurtochtenBox .speurtocht {
+  font-weight: bold;
+  font-size: 18px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
 .createBox {
   width: max-content;
   margin: 0 auto;
@@ -67,7 +86,14 @@ body {
 .creatingBox h2 {
   text-align: center;
 }
-form .inputField {
+.inputField {
+  padding: 5px;
+  font-weight: bold;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 6px;
+}
+form .inputField1 {
   text-align: center;
   color: #000;
   font-size: 16px;
@@ -77,9 +103,7 @@ form .inputField {
   display: block; /*///////*/
   margin: 12px auto;
 }
-input[type="checkbox"] {
-  border-radius: 18px;
-}
+
 .buttonForm {
   cursor: pointer;
   margin: 20px 0px;
@@ -90,15 +114,6 @@ input[type="checkbox"] {
   padding: 5px 15px;
   background-color: transparent;
 }
-body Form .extra {
-  font-weight: bold;
-  font-size: 14px;
-  border: 2px solid #fff;
-  border-radius: 18px;
-  padding: 5px 15px;
-  cursor: pointer;
-  text-align: left !important;
-}
 .createBox .createSPT {
   font-weight: bold;
   border: 2px solid #fff;
@@ -107,13 +122,91 @@ body Form .extra {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+/*========================================================================
+  Speurtochtpaneel
+/*=======================================================================*/
+.speurtochtenBoxMenu {
+  width: max-content;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+}
 
+.speurtochtenBoxMenu .speurtocht {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  margin: 6px;
+  text-align: center;
+}
+.speurtochtStarten,
+.speurtochtAanpassen,
+.ResultatenNakijken,
+.eindresultatenBekijken,
+.deelnemersVerwijderen,
+.speurtochtVerwijderen {
+  display: none;
+}
+.speurtochtAanpassen {
+  max-width: 50%;
+  margin: 0 auto;
+}
+.speurtochtAanpassen h2,
+.speurtochtAanpassen input,
+.speurtochtAanpassen label,
+.speurtochtTitel {
+  text-align: center;
+}
+.speurtochtAanpassen label {
+  margin: 10px 10px 10px 0px;
+}
+/* AANPASSEN */
+input[type="checkbox"] {
+  border-radius: 18px;
+  margin: 10px 5px 10px 5px;
+}
+.extraField {
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+  margin: 0 auto;/* */
+  display: block;/* !!!!!! */
+  width: max-content;/* */
+}
+.extraQuestions {
+  margin: 26px 0px 0px 0px;
+}
+.editSpeurtocht {
+  text-align: center;
+  color: #000;
+  font-size: 16px;
+  padding: 6px 0px;
+  width: 240px;
+  display: block;
+  margin: 12px auto;
+  border-bottom: 2px solid #fff;
+}
+.update {
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0);
+}
 /*========================================================================
   Inloggen & Registreren form
 /*=======================================================================*/
 form {
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 14px;
   color: white;
   text-align: center;
 }

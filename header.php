@@ -1,3 +1,6 @@
+<?php
+// if (!empty($_SESSION['UID'])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,3 +23,8 @@
     <div class="headerBox">
         <h1 class="headerTitle"> Speurtocht </h1>
     </div>
+<?php
+// } else {
+    // header('Location: index');
+// }
+?>
