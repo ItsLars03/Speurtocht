@@ -42,5 +42,34 @@ router.post("/", async (req, res) => {
     }
 })
 
+router.get("/", async (req, res) => {
+    const { email, password } = req.body
+
+    if (!emailRegex.test(email)) {
+        res.status(500).json({
+            success: false,
+            message: "Not a valid email."
+        })
+        return
+    }
+
+    try {
+        const user = await prisma.user.findFirst({
+            where: { email, password }
+        })
+        return {
+            success: true,
+            isValidUser: user != null,
+            user,
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error."
+        })
+    }
+})
+
 
 export default router

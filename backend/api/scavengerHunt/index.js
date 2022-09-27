@@ -7,21 +7,25 @@ const router = Router()
 const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
 
 router.get("/", async (req, res) => {
-    const data = await prisma.scavengerHunt.findMany({
-        select: {
-            scavengerHuntId: true,
-            ownerId: true,
-            name: true,
-            status: true,
-            players: true,
-            questions: true
-        }
-    })
-    res.status(200).json({ ...data })
+    try {
+        const data = await prisma.scavengerHunt.findMany({
+            select: {
+                scavengerHuntId: true,
+                ownerId: true,
+                name: true,
+                status: true,
+                players: true,
+                questions: true
+            }
+        })
+        res.status(200).json({ success: true, data })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Internal server error." })
+    }
 })
 
+//TODO -- just dummy data now.
 router.post("/", async (req, res) => {
-
     const data = await prisma.scavengerHunt.create({
         data: {
             User: {
@@ -71,5 +75,46 @@ router.post("/", async (req, res) => {
     res.status(200).json({ ...data })
 })
 
+router.delete("/", async (req, res) => {
+    const { email, id } = req.body
+
+    if (!emailRegex.test(email)) {
+        res.status(500).json({
+            success: false,
+            message: "Not a valid email."
+        })
+        return
+    }
+
+    const idInt = parseInt(id)
+
+    if (isNaN(idInt)) {
+        res.status(500).json({
+            success: false,
+            message: "The id given is not a valid id."
+        })
+        return
+    }
+
+    try {
+        const deletedScavengerHunt = await prisma.user.update({
+            where: { email },
+            data: {
+                scavengerHunt: {
+                    delete: [{ scavengerHuntId: idInt }]
+                }
+            }
+        })
+        res.status(200).json({
+            success: true,
+            data: deletedScavengerHunt
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+})
 
 export default router

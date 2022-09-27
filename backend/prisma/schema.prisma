@@ -22,7 +22,7 @@ model ScavengerHunt {
   name            String @db.VarChar(32)
   status          String @db.VarChar(64)
 
-  User User @relation(fields: [ownerId], references: [userId])
+  User User @relation(fields: [ownerId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
 
   players   Players[]
   questions Questions[]
@@ -34,7 +34,7 @@ model Questions {
   question        String @db.VarChar(500)
   type            String @db.VarChar(64)
 
-  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
+  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 
   answers Answers[]
 }
@@ -45,8 +45,8 @@ model Answers {
   playerId   Int
   answer     String @db.VarChar(500)
 
-  questions Questions @relation(fields: [questionId], references: [questionId])
-  players   Players   @relation(fields: [playerId], references: [playerId])
+  questions Questions @relation(fields: [questionId], references: [questionId], onDelete: Cascade, onUpdate: Cascade)
+  players   Players   @relation(fields: [playerId], references: [playerId], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Players {
@@ -55,7 +55,7 @@ model Players {
   name            String @db.VarChar(32)
   email           String @db.VarChar(64)
 
-  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId])
+  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 
   answers Answers[]
 }
