@@ -10,7 +10,7 @@ router.get("/:id", async (req, res) => {
 
     const data = await prisma.user.findFirst({
         where: {
-            userId: parseInt(id)
+            userId: id
         },
         select: {
             nickname: true,

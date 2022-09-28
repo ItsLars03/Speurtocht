@@ -28,19 +28,10 @@ router.get("/:id", async (req, res) => {
     const { id } = req.params
     const { email } = req.body
 
-    const idInt = parseInt(id)
-    if (isNaN(idInt)) {
-        res.status(400).json({
-            success: false,
-            message: "The id given is not a valid id."
-        })
-        return
-    }
-
     try {
         const data = await prisma.scavengerHunt.findFirst({
             where: {
-                scavengerHuntId: idInt,
+                scavengerHuntId: id,
                 User: {
                     email
                 }
@@ -134,22 +125,12 @@ router.delete("/", async (req, res) => {
         return
     }
 
-    const idInt = parseInt(id)
-
-    if (isNaN(idInt)) {
-        res.status(500).json({
-            success: false,
-            message: "The id given is not a valid id."
-        })
-        return
-    }
-
     try {
         const deletedScavengerHunt = await prisma.user.update({
             where: { email },
             data: {
                 scavengerHunt: {
-                    delete: [{ scavengerHuntId: idInt }]
+                    delete: [{ scavengerHuntId: id }]
                 }
             }
         })
