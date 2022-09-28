@@ -26,15 +26,13 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params
-    const { email } = req.body
+    const { id: ownerId } = req.body
 
     try {
         const data = await prisma.scavengerHunt.findFirst({
             where: {
                 scavengerHuntId: id,
-                User: {
-                    email
-                }
+                ownerId
             }
         })
         if (data == null) {
@@ -62,7 +60,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const {
-        email,
+        ownerId,
         name,
         questions = [],
         status = "CLOSED",
@@ -70,10 +68,10 @@ router.post("/", async (req, res) => {
     } = req.body
 
 
-    if (!email || !name) {
+    if (!ownerId || !name) {
         res.status(400).json({
             success: false,
-            message: "email and name are required fields."
+            message: "ownerId and name are required fields."
         })
         return
     }
@@ -81,11 +79,7 @@ router.post("/", async (req, res) => {
     try {
         const data = await prisma.scavengerHunt.create({
             data: {
-                User: {
-                    connect: {
-                        email
-                    }
-                },
+                ownerId,
                 name,
                 status,
                 questions: questions.length > 0 ? {
@@ -115,24 +109,11 @@ router.post("/", async (req, res) => {
 })
 
 router.delete("/", async (req, res) => {
-    const { email, id } = req.body
-
-    if (!emailRegex.test(email)) {
-        res.status(500).json({
-            success: false,
-            message: "Not a valid email."
-        })
-        return
-    }
+    const { ownerId, id } = req.body
 
     try {
-        const deletedScavengerHunt = await prisma.user.update({
-            where: { email },
-            data: {
-                scavengerHunt: {
-                    delete: [{ scavengerHuntId: id }]
-                }
-            }
+        const deletedScavengerHunt = await prisma.scavengerHunt.delete({
+            where: { scavengerHuntId: id, ownerId },
         })
         res.status(200).json({
             success: true,

@@ -8,7 +8,7 @@ const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
 
 router.post("/", async (req, res) => {
 
-    const { password, email } = req.body
+    const { password, email, nickname } = req.body
 
     //maybe check weak password.
 
@@ -23,21 +23,19 @@ router.post("/", async (req, res) => {
     try {
         const user = await prisma.user.create({
             data: {
-                nickname: "test",
+                nickname,
                 password,
                 email
             }
-
         })
 
         console.log("[LOGIN]", "user has been created", user)
-        res.status(200).json({ success: true, ...user })
+        res.status(200).json({ success: true, data: user })
     } catch (error) {
         console.error(error)
-
         res.status(500).json({
             success: false,
-            message: error.message.contains("User_email_key") ? "email already exists." : "Server error."
+            message: error.message.contains("User_email_key") ? "email already exists." : "Internal server error."
         })
     }
 })
@@ -53,15 +51,29 @@ router.get("/", async (req, res) => {
         return
     }
 
+    if (!email || !password) {
+        res.status(400).json({
+            success: false,
+            message: "email and password are required fields."
+        })
+        return
+    }
+
     try {
         const user = await prisma.user.findFirst({
             where: { email, password }
         })
-        return {
-            success: true,
-            isValidUser: user != null,
-            user,
+        if (user == null) {
+            res.status(404).json({
+                success: false,
+                message: "Could not find the user with these credentials."
+            })
+            return
         }
+        res.status(200).json({
+            success: true,
+            data: user,
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({
