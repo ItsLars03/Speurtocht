@@ -21,19 +21,30 @@ if(isset($_GET['id']) && $result->num_rows == 1) {
 }
 
 if ($check = true) {
+
     $query = "SELECT * FROM scavengerhunt WHERE scavengerHuntId='$speurtocht_id'";
     $result = mysqli_query($db, $query);
     $row = $result->fetch_assoc();
+    // Go back button
+    echo '<div class="backButton">';
+        echo '<i class="fas fa-arrow-left"></i>';
+    echo '</div>';
     echo '<h2 class="speurtochtTitel"> '. $row['name'] .' </h2>';
 
     echo '<div class="speurtochtenBoxMenu">';
-        echo '<a class="speurtocht">Speurtocht starten</a>';
-        echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
+        if ($row['status'] == 'INACTIVE') {
+            echo '<a class="speurtocht">Speurtocht starten</a>';
+            echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
+        }
         echo '<a class="speurtocht">Resultaten nakijken</a>';
         echo '<a class="speurtocht">Eindresultaten bekijken</a>';
         echo '<a class="speurtocht">Deelnemers verwijderen</a>';
         echo '<a class="speurtocht">Speurtocht verwijderen</a>';
     echo '</div>';
+
+    // SPEURTOCHT STARTEN //
+
+
 
     // SPEURTOCHT AANPASSEN //
     echo '<div class="speurtochtAanpassen">';
@@ -57,7 +68,7 @@ if ($check = true) {
                 echo '<input name="photo" class="two1" type="checkbox" '.$is_checked_two.'>';
                 echo '<label for="two1">Foto vraag</label></br>';
                 echo '<textarea name="speurtochtText" id="'.$row['scavengerHuntId'].'" class="editSpeurtocht">'.$row['question'].'</textarea>';
-                echo '<button class="update" name="update">Opslaan</button>';
+                echo '<button class="update" name="update">Bewerken</button>';
             echo '</form>';
             if (isset($_POST['update'])) {
                 $speurtocht_id = $row['scavengerHuntId'];
@@ -66,15 +77,21 @@ if ($check = true) {
 
                 $question_type1 = mysqli_real_escape_string($db, $_POST['open']);
                 $question_type2 = mysqli_real_escape_string($db, $_POST['photo']);
+                $typee = '';
+                if (!empty($question_type1)) {
+                    $typee = 'OPEN';
+                } elseif(!empty($question_type2)) {
+                    $typee = 'PHOTO';
+                }
 
                 echo $question_id;
-                $query = "UPDATE questions SET question = '$question_text', type = 'aaa' WHERE questionId = '".$question_id."'";
+                $query = "UPDATE questions SET question = '$question_text', type = '$typee' WHERE questionId = '".$question_id."'";
                 $result = mysqli_query($db, $query);
 
                 header('Location: speurtochtpaneel?id='.$speurtocht_id.'');
             }
         }
-        echo '<h2 class="extraQuestions"> Extra vragen maken </h2>';
+        echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
         echo '<form id="createForm" action="beheerderpaneel" method="POST">';
             echo '<input class="one1" type="checkbox">';
             echo '<label for="one1">Open vraag</label>';

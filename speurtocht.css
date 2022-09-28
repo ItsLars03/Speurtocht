@@ -125,6 +125,20 @@ form .inputField1 {
 /*========================================================================
   Speurtochtpaneel
 /*=======================================================================*/
+.backButton {
+  width: max-content;
+  margin: 0 auto;
+  right: 7em;
+  top: 3.1em;
+  position: relative;
+  cursor: pointer;
+  display: none;
+}
+.backButton i {
+  font-weight: bold;
+  font-size: 28px;
+  color: #fff;
+}
 .speurtochtenBoxMenu {
   width: max-content;
   margin: 0 auto;
@@ -192,6 +206,16 @@ input[type="checkbox"] {
   margin: 12px auto;
   border-bottom: 2px solid #fff;
 }
+.update::after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  width: 240px;
+  height: 4px;
+  display: block;
+  top: 43px;
+  left: -80px;
+}
 .update {
   font-weight: bold;
   font-size: 14px;
@@ -200,13 +224,17 @@ input[type="checkbox"] {
   padding: 5px 15px;
   cursor: pointer;
   background: rgba(0, 0, 0, 0);
+  position: relative;
+}
+#editQuestion {
+  margin: 36px 0px;
 }
 /*========================================================================
   Inloggen & Registreren form
 /*=======================================================================*/
 form {
   margin: 0 auto;
-  margin-top: 14px;
+  margin-top: 24px;
   color: white;
   text-align: center;
 }
