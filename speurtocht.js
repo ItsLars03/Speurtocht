@@ -24,20 +24,32 @@ $(document).ready(function(){
     /*======================================================================== #
       Speurtochtpaneel
     /*=======================================================================*/
+    // back button
+    $(".backButton").click(function(){
+        $('.speurtochtenBoxMenu').css("display", "flex");
+        $('.speurtochtAanpassen').css("display", "none");
+        $('.backButton').css("display", "none");
+    });
+    // START //
+    
+
     // AANPASSEN //
     $(".AanpassenMenu").click(function(){
         $('.speurtochtenBoxMenu').css("display", "none");
         $('.speurtochtAanpassen').css("display", "block");
+        $('.backButton').css("display", "block");
     });
     // Prevent both options being selected
     $('.one1').click(function(){
         if($(this).prop("checked") == true){
-            $( ".two1" ).prop( "checked", false );
+            //$(this).closest( ".two1" ).prop( "checked", false );
+            $(this).closest('#editQuestion').find('.two1').prop( "checked", false );
         }
     });
     $('.two1').click(function(){
         if($(this).prop("checked") == true){
-            $( ".one1" ).prop( "checked", false );
+            //$(this).closest( ".one1" ).prop( "checked", false );
+            $(this).closest('#editQuestion').find('.one1').prop( "checked", false );
         }
     });
 });
