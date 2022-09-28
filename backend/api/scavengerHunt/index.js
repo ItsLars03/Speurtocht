@@ -24,22 +24,57 @@ router.get("/", async (req, res) => {
     }
 })
 
-//TODO -- just dummy data now.
-router.post("/", async (req, res) => {
-    /**
-     * What you need:
-     *  - user
-     *  - name
-     *  - questions?
-     *  - status - default -> closed
-     *  - players - default -> empty[]
-     */
+router.get("/:id", async (req, res) => {
+    const { id } = req.params
+    const { email } = req.body
 
+    const idInt = parseInt(id)
+    if (isNaN(idInt)) {
+        res.status(400).json({
+            success: false,
+            message: "The id given is not a valid id."
+        })
+        return
+    }
+
+    try {
+        const data = await prisma.scavengerHunt.findFirst({
+            where: {
+                scavengerHuntId: idInt,
+                User: {
+                    email
+                }
+            }
+        })
+        if (data == null) {
+            res.status(404).json({
+                success: false,
+                message: "No record found with this id and email."
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            data
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+
+
+
+})
+
+router.post("/", async (req, res) => {
     const {
         email,
         name,
         questions = [],
-        status = "closed",
+        status = "CLOSED",
         players = []
     } = req.body
 
@@ -62,8 +97,16 @@ router.post("/", async (req, res) => {
                 },
                 name,
                 status,
-                questions,
-                players
+                questions: questions.length > 0 ? {
+                    createMany: {
+                        data: questions
+                    }
+                } : undefined,
+                players: players.length > 0 ? {
+                    createMany: {
+                        data: players
+                    }
+                } : undefined
             }
         })
 
@@ -72,60 +115,12 @@ router.post("/", async (req, res) => {
             data,
         })
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             success: false,
             message: "Internal server error."
         })
     }
-
-
-    // const data = await prisma.scavengerHunt.create({
-    //     data: {
-    //         User: {
-    //             connect: {
-    //                 email: "email"
-    //             }
-    //         },
-    //         name: "test",
-    //         status: "closed",
-    //         questions: {
-    //             createMany: {
-    //                 data: [
-    //                     {
-    //                         question: "question 1",
-    //                         type: "text",
-    //                         // answers: {
-    //                         //     data: null
-    //                         // }
-    //                     },
-    //                     {
-    //                         question: "question 2",
-    //                         type: "photo",
-    //                         // answers: {
-    //                         //     data: null
-    //                         // }
-    //                     }
-    //                 ]
-    //             }
-    //         },
-    //         players: {
-    //             createMany: {
-    //                 data: [
-    //                     {
-    //                         name: "player1",
-    //                         email: "player1@gmail.com"
-    //                     },
-    //                     {
-    //                         name: "player2",
-    //                         email: "player2@gmail.com"
-    //                     }
-    //                 ]
-    //             }
-    //         }
-    //     }
-    // })
-
-    // res.status(200).json({ ...data })
 })
 
 router.delete("/", async (req, res) => {
