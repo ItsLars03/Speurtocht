@@ -1,34 +1,30 @@
 <?php
-	error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
-	ini_set('display_errors', 1);
-	include "classes/class.phpmailer.php";
+//The url you wish to send the POST request to
+$url = "http://localhost:5001/mail/send";
 
-	//Receiver Info
-	 $email = "larsderover@hotmail.com";
-	 $name = "Gebruiker";
- 	 $recoverpwlink = "".$link."/forgot_password_reset.php?key=".$key."&email=".$email_reg;
+//The data you want to send via POST
+$fields = [
+	'subject'      => "Deelnemen aan de speurtocht",
+	'html' 		   => "<html>test</html>",
+	'text'         => '',
+	'to'		   => "thimosietsma@gmail.com",
+	'from'		   => "p11k3t@lesonline.nu"
+];
 
-	//Sender Info
-	 $sender_name = "p11k3t3@lesonline.nu"; //naam van de 
- 	 $sender_email = "p11k3t3@lesonline.nu";
-	 $sender_password = "e7mUNBssyG";
-	
-	 $mail_subject = "Deelnemen aan de speurtocht";
-	 $message = '<html>Zet hier het bericht</html>'; 
-	
-	 $mail = new PHPMailer;
-	 $mail->IsSMTP();
- 	 $mail->Host = "mail.antagonist.nl";
-	 $mail->Port = 465;
-	 $mail->SMTPAuth = true;
-	 $mail->SMTPDebug = 1;
-	 $mail->SMTPSecure = "ssl";
-	 $mail->Username = $sender_email;
-	 $mail->Password = $sender_password;
-	 $mail->AddReplyTo($sender_email, $sender_name);
-	 $mail->SetFrom($sender_email,$sender_name);
-	 $mail->Subject = $mail_subject;
-	 $mail->AddAddress($email, $name);
-	 $mail->MsgHTML($message);
-	 $send = $mail->Send();
-?>
+//url-ify the data for the POST
+$fields_string = http_build_query($fields);
+
+//open connection
+$ch = curl_init();
+
+//set the url, number of POST vars, POST data
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+//So that curl_exec returns the contents of the cURL; rather than echoing it
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+//execute post\
+$result = curl_exec($ch);
+echo $result;
