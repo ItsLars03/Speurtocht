@@ -9,18 +9,18 @@ datasource db {
 
 model User {
   userId   Int     @id @default(autoincrement())
-  nickname String? @db.VarChar(50) 
-  email    String? @db.VarChar(64) @unique
-  password String? @db.VarChar(32)
+  nickname String? @db.VarChar(50)
+  email    String  @unique @db.VarChar(64)
+  password String  @db.VarChar(32)
 
   scavengerHunt ScavengerHunt[]
 }
 
 model ScavengerHunt {
-  scavengerHuntId Int    @id @default(autoincrement())
+  scavengerHuntId Int                 @id @default(autoincrement())
   ownerId         Int
-  name            String @db.VarChar(32)
-  status          String @db.VarChar(64)
+  name            String              @db.VarChar(32)
+  status          ScavengerHuntStatus
 
   User User @relation(fields: [ownerId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
 
@@ -29,10 +29,10 @@ model ScavengerHunt {
 }
 
 model Questions {
-  questionId      Int    @id @default(autoincrement())
+  questionId      Int          @id @default(autoincrement())
   scavengerHuntId Int
-  question        String @db.VarChar(500)
-  type            String @db.VarChar(64)
+  question        String       @db.VarChar(500)
+  type            QuestionType
 
   scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 
@@ -40,10 +40,11 @@ model Questions {
 }
 
 model Answers {
-  answerId   Int    @id @default(autoincrement())
+  answerId   Int      @id @default(autoincrement())
   questionId Int
   playerId   Int
-  answer     String @db.VarChar(500)
+  answer     String   @db.VarChar(500)
+  correct    Boolean?
 
   questions Questions @relation(fields: [questionId], references: [questionId], onDelete: Cascade, onUpdate: Cascade)
   players   Players   @relation(fields: [playerId], references: [playerId], onDelete: Cascade, onUpdate: Cascade)
@@ -58,4 +59,14 @@ model Players {
   scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 
   answers Answers[]
+}
+
+enum ScavengerHuntStatus {
+  CLOSED
+  OPENED
+}
+
+enum QuestionType {
+  TEXT
+  PHOTO
 }
