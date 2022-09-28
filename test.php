@@ -15,9 +15,9 @@ include('./utils/api.php')
 
 <body>
     <?php
-    $data = API::post("/scavengerhunt", array(
-        "ownerId" => "7386d262-4519-482a-9260-9190d97066f3",
-        "name" => "Mijn 3e speurtocht."
+    $data = API::delete("/scavengerhunt", array(
+        // "ownerId" => "078a0d33-eb8f-4153-830a-a186f73dd4e5",
+        "id" => "0b0aab24-0509-4f63-a8a8-d85f1f745f5c"
     ));
     if ($data == null) {
         echo "There is no data.";

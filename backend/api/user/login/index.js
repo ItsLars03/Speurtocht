@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
     if (!email || !password) {
         res.status(400).json({
             success: false,
-            message: "email and password are required fields."
+            message: "Email and password are required fields."
         })
         return
     }
