@@ -35,6 +35,7 @@ router.post("/send", async (req, res) => {
         res.status(200).json(info)
         return
     } catch (error) {
+        console.error(error)
         res.status(500).json({
             success: false,
             message: error.message.includes("too many emails") ? "Too many emails have been sent." : "Internal Server Error."
