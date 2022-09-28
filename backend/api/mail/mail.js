@@ -4,7 +4,13 @@ import nodemailer from 'nodemailer'
 const router = Router()
 
 router.post("/send", async (req, res) => {
-    const { html = "<html>Hello World</html>", text = "Hello World", subject = "Mail!" } = req.body
+    const {
+        html = "<html>Hello World</html>",
+        text = "Hello World",
+        subject = "Mail!",
+        to = "p11k3t@lesonline.nu",
+        from = "p11k3t@lesonline.nu"
+    } = req.body
     // let testAccount = await nodemailer.createTestAccount();
 
     console.log(html, text, subject)
@@ -20,8 +26,8 @@ router.post("/send", async (req, res) => {
         });
 
         let info = await transporter.sendMail({
-            from: 'p11k3t3@lesonline.nu', // sender address
-            to: "thimosietsma@gmail.com", // list of receivers
+            from, // sender address
+            to, // list of receivers
             subject, // Subject line
             text, // plain text body
             html, // html body
