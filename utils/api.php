@@ -6,7 +6,7 @@ class API
 
     static string $_url = "http://localhost:5001";
 
-    public static function fetch($uri = "/", $fields)
+    public static function get($uri = "/", $fields)
     {
         $url = API::$_url . $uri;
 
@@ -31,6 +31,29 @@ class API
         // Timeout in seconds
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
-        return curl_exec($ch);
+        $result = curl_exec($ch);
+        return gettype($result) == "string" ? json_decode($result) : null;
+    }
+
+    public static function post($uri = "/", $fields)
+    {
+        $url = API::$_url . $uri;
+
+        $headers = array(
+            'Accept: application/json',
+            'Content-Type: application/json',
+        );
+
+        $body = http_build_query($fields);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $result = curl_exec($ch);
+        return gettype($result) == "string" ? json_decode($result) : null;
     }
 }
