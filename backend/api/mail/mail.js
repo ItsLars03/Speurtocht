@@ -11,7 +11,6 @@ router.post("/send", async (req, res) => {
         to = "p11k3t@lesonline.nu",
         from = "p11k3t@lesonline.nu"
     } = req.body
-    // let testAccount = await nodemailer.createTestAccount();
 
     console.log(html, text, subject)
     try {

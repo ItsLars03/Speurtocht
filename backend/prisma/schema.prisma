@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  userId   Int     @id @default(autoincrement())
+  userId   String  @id @unique @default(uuid())
   nickname String? @db.VarChar(50)
   email    String  @unique @db.VarChar(64)
   password String  @db.VarChar(32)
@@ -17,8 +17,8 @@ model User {
 }
 
 model ScavengerHunt {
-  scavengerHuntId Int                 @id @default(autoincrement())
-  ownerId         Int
+  scavengerHuntId String              @id @unique @default(uuid())
+  ownerId         String
   name            String              @db.VarChar(32)
   status          ScavengerHuntStatus
 
@@ -29,8 +29,8 @@ model ScavengerHunt {
 }
 
 model Questions {
-  questionId      Int          @id @default(autoincrement())
-  scavengerHuntId Int
+  questionId      String       @id @unique @default(uuid())
+  scavengerHuntId String
   question        String       @db.VarChar(500)
   type            QuestionType
 
@@ -40,9 +40,9 @@ model Questions {
 }
 
 model Answers {
-  answerId   Int      @id @default(autoincrement())
-  questionId Int
-  playerId   Int
+  answerId   String   @id @unique @default(uuid())
+  questionId String
+  playerId   String
   answer     String   @db.VarChar(500)
   correct    Boolean?
 
@@ -51,8 +51,8 @@ model Answers {
 }
 
 model Players {
-  playerId        Int    @id @default(autoincrement())
-  scavengerHuntId Int
+  playerId        String @id @unique @default(uuid())
+  scavengerHuntId String
   name            String @db.VarChar(32)
   email           String @db.VarChar(64)
 
