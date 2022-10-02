@@ -1,3 +1,0 @@
-# Speurtocht
-Digitale speurtocht maker
-  
