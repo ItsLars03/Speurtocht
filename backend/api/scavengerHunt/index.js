@@ -45,7 +45,8 @@ router.get("/owner/:ownerId", async (req, res) => {
 })
 
 router.get("/:scavengerHuntId", async (req, res) => {
-    const { ownerId, scavengerHuntId } = req.params
+    const { scavengerHuntId } = req.params
+    const { ownerId } = req.body
 
     try {
         const data = await prisma.scavengerHunt.findFirst({

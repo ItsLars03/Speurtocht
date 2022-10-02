@@ -12,7 +12,7 @@
 
     $response = API::get("/scavengerhunt/owner/" . $ownerId, array());
 
-    if (!isset($response) || !isset($response->success) || !$response->success) {
+    if (!isset($response) || !isset($response->success) || !$response->success || !isset($response->data)) {
         //something failed.
         //TODO: handle error.
         return;
