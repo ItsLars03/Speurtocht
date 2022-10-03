@@ -28,7 +28,7 @@
         return;
     }
 
-
+    $speurtocht_id = $_GET['id'];
     // $query = "SELECT * FROM scavengerhunt WHERE scavengerHuntId='$speurtocht_id'";
     // $result = mysqli_query($db, $query);
     // $row = $result->fetch_assoc();
@@ -96,26 +96,16 @@
     }
 
     echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
-    echo '<form id="createForm" action="beheerderpaneel" method="POST">';
+    echo '<form id="createForm" action="/server/scavengerHunt/create.php" method="POST">';
+    echo '<input type="hidden" name="Spid" value="'.$speurtocht_id.'">';
     echo '<input class="one1" type="checkbox" name="open">';
     echo '<label for="one1">Open vraag</label>';
     echo '<input class="two1" type="checkbox" name="photo">';
     echo '<label for="two1">Foto vraag</label></br>';
     echo '<textarea class="inputField1" id="inputField1" name="question" placeholder="Vul hier uw vraag in" required></textarea>';
-    echo '<button class="buttonForm" type="submit" name="addQuestion">Extra vraag toevoegen</button>';
+    echo '<button class="buttonForm" type="submit" name="addquestion">Extra vraag toevoegen</button>';
     echo '</form>';
     echo '</div>'; 
-    
-
-    if (isset($_POST['addQuestion'])) {
-        $question = mysqli_real_escape_string($db, $_POST['question']);
-
-        $type = '';
-        if (!empty(mysqli_real_escape_string($db, $_POST['open']))) {
-
-        }
-
-    }
 
     ?>
 
