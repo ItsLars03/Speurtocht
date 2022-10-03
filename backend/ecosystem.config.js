@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: "todo-app",
+            name: "speurtocht-backend",
             cwd: "~/www/speurtocht/backend/",
             script: "npm",
             args: ["run", "start"],
