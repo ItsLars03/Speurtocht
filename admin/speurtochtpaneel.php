@@ -12,7 +12,8 @@
 
     if (!isset($_GET['id'])) {
         //TODO maybe add error message?
-        header("location: /admin/beheerderpaneel.php");
+        // header("location: /admin/beheerderpaneel.php");
+        echo '0';
         return;
     }
 
@@ -23,7 +24,8 @@
 
     if (!isset($response) || !isset($response->success) || !$response->success || !isset($response->data)) {
         //TODO maybe add error message?
-        header("location: /admin/beheerderpaneel.php");
+        // header("location: /admin/beheerderpaneel.php");
+        echo '1';
         return;
     }
 
