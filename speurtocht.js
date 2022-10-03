@@ -28,15 +28,22 @@ $(document).ready(function(){
     $(".backButton").click(function(){
         $('.speurtochtenBoxMenu').css("display", "flex");
         $('.speurtochtAanpassen').css("display", "none");
+        $('.speurtochtStarten').css("display", "none");
         $('.backButton').css("display", "none");
     });
-    // START //
     
+
 
     // AANPASSEN //
     $(".AanpassenMenu").click(function(){
         $('.speurtochtenBoxMenu').css("display", "none");
         $('.speurtochtAanpassen').css("display", "block");
+        $('.backButton').css("display", "block");
+    });
+    // START //
+    $(".startMenu").click(function(){
+        $('.speurtochtenBoxMenu').css("display", "none");
+        $('.speurtochtStarten').css("display", "block");
         $('.backButton').css("display", "block");
     });
     // Prevent both options being selected

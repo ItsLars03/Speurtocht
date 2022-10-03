@@ -24,6 +24,8 @@
         <h1 class="headerTitle"> Speurtocht </h1>
     </div>
 <?php
+// $db = mysqli_connect('p11k3t3.lesonline.nu', 'deb85590_p11k3t3', 'e7mUNBssyG', 'deb85590_p11k3t3');
+$db = mysqli_connect('localhost', 'root', '', 'speurtocht');
 // } else {
     // header('Location: index');
 // }

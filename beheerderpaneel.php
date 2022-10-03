@@ -7,8 +7,8 @@
     <?php
     echo '<div class="speurtochtenBox">';
     // Database connection values.
-        $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
-        $query = "SELECT * FROM scavengerhunt WHERE ownerId='1'";
+        // $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
+        $query = "SELECT * FROM scavengerhunt WHERE ownerId='d8865c57-d448-4129-8064-e39a6e2cd905'";
         $result = mysqli_query($db, $query);
         // Display all created 'speurtochten'
         while($row = $result->fetch_assoc()) {

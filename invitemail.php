@@ -1,4 +1,6 @@
 <?php
+
+function send_mail($to) {
 //The url you wish to send the POST request to
 $url = "http://localhost:5001/mail/send";
 
@@ -7,7 +9,7 @@ $fields = [
 	'subject'      => "Deelnemen aan de speurtocht",
 	'html' 		   => "<html>test</html>",
 	'text'         => '',
-	'to'		   => "thimosietsma@gmail.com",
+	'to'		   => "$to",
 	'from'		   => "p11k3t@lesonline.nu"
 ];
 
@@ -28,3 +30,4 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //execute post\
 $result = curl_exec($ch);
 echo $result;
+}

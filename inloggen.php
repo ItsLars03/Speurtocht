@@ -27,7 +27,7 @@
             data[element.name] = element.value
         }
 
-        makeRequest(`${BACKEND}/login`, "POST", data)
+        makeRequest(`${BACKEND}/users/login`, "POST", data)
             .then((res) => {
                 if (res.success) {
                     if (res.statusCode == 200) {
