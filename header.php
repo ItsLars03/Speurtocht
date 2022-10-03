@@ -14,8 +14,8 @@
     <link href='https://fonts.googleapis.com/css?family=Black Han Sans' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
     <script src="https://cdn.socket.io/4.5.2/socket.io.js"></script>
-    <script src="scripts/init.js"></script>
-    <script src="scripts/speurtocht.js"></script>
+    <script src="/scripts/init.js"></script>
+    <script src="/scripts/speurtocht.js"></script>
     <title>Speurtocht</title>
 </head>
 
