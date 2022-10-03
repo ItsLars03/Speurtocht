@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
         console.log(error)
         res.status(500).json({
             success: false,
-            message: error.message.contains("User_email_key") ? "email already exists." : "Internal server error."
+            message: error.message?.contains("User_email_key") ? "email already exists." : "Internal server error."
         })
     }
 })
