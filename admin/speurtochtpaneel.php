@@ -12,7 +12,8 @@
 
     if (!isset($_GET['id'])) {
         //TODO maybe add error message?
-        header("location: /admin/beheerderpaneel.php");
+        // header("location: /admin/beheerderpaneel.php");
+        echo '0';
         return;
     }
 
@@ -23,7 +24,8 @@
 
     if (!isset($response) || !isset($response->success) || !$response->success || !isset($response->data)) {
         //TODO maybe add error message?
-        header("location: /admin/beheerderpaneel.php");
+        // header("location: /admin/beheerderpaneel.php");
+        echo '1';
         return;
     }
 
@@ -96,14 +98,24 @@
 
     echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
     echo '<form id="createForm" action="beheerderpaneel" method="POST">';
-    echo '<input class="one1" type="checkbox">';
+    echo '<input class="one1" type="checkbox" name="open">';
     echo '<label for="one1">Open vraag</label>';
-    echo '<input class="two1" type="checkbox">';
+    echo '<input class="two1" type="checkbox" name="photo">';
     echo '<label for="two1">Foto vraag</label></br>';
-    echo '<textarea class="inputField1" id="inputField1" name="inputField1" placeholder="Vul hier uw vraag in" required></textarea>';
+    echo '<textarea class="inputField1" id="inputField1" name="question" placeholder="Vul hier uw vraag in" required></textarea>';
+    echo '<button class="buttonForm" type="submit" name="addQuestion">Extra vraag toevoegen</button>';
     echo '</form>';
-    echo '<a class="extraField">Extra vraag toevoegen</a><br/>';
     echo '</div>';
+
+    if (isset($_POST['addQuestion'])) {
+        $question = mysqli_real_escape_string($db, $_POST['question']);
+
+        $type = '';
+        if (!empty(mysqli_real_escape_string($db, $_POST['open']))) {
+
+        }
+
+    }
 
     ?>
 

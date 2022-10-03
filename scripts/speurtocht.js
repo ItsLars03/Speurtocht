@@ -51,12 +51,14 @@ $(document).ready(function(){
         if($(this).prop("checked") == true){
             //$(this).closest( ".two1" ).prop( "checked", false );
             $(this).closest('#editQuestion').find('.two1').prop( "checked", false );
+            $('#createForm .two1').prop( "checked", false );
         }
     });
     $('.two1').click(function(){
         if($(this).prop("checked") == true){
             //$(this).closest( ".one1" ).prop( "checked", false );
             $(this).closest('#editQuestion').find('.one1').prop( "checked", false );
+            $('#createForm .one1').prop( "checked", false );
         }
     });
 });
