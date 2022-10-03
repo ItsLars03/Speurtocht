@@ -32,10 +32,10 @@ router.post("/", async (req, res) => {
         console.log("[LOGIN]", "user has been created", user)
         res.status(200).json({ success: true, data: user })
     } catch (error) {
-        console.error(error)
+        console.log(error)
         res.status(500).json({
             success: false,
-            message: error.message.contains("User_email_key") ? "email already exists." : "Internal server error."
+            message: error.message?.contains("User_email_key") ? "email already exists." : "Internal server error."
         })
     }
 })
