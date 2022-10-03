@@ -105,7 +105,8 @@
     echo '<textarea class="inputField1" id="inputField1" name="question" placeholder="Vul hier uw vraag in" required></textarea>';
     echo '<button class="buttonForm" type="submit" name="addQuestion">Extra vraag toevoegen</button>';
     echo '</form>';
-    echo '</div>';
+    echo '</div>'; 
+    
 
     if (isset($_POST['addQuestion'])) {
         $question = mysqli_real_escape_string($db, $_POST['question']);
