@@ -21,7 +21,7 @@
     $data = (array) $response->data;
 
     foreach ($data as $scavengerHunt) {
-        echo '<a href="speurtochtpaneel?id=' . $scavengerHunt->scavengerHuntId . '" class="speurtocht">' . $scavengerHunt->name . '</a>';
+        echo '<a href="speurtochtpaneel.php?id=' . $scavengerHunt->scavengerHuntId . '" class="speurtocht">' . $scavengerHunt->name . '</a>';
     }
 
     echo '</div>';
