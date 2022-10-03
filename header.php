@@ -35,6 +35,7 @@ $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
         header("location: /login.php");
         return;
     }
+
     ?>
 </body>
 
