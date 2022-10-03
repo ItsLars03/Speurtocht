@@ -63,9 +63,9 @@
         $question = $_question;
         echo '<form id="editQuestion" action="speurtochtpaneel.php" method="POST">';
         echo '<input type="hidden" name="id" value="' . $question->questionId . '">';
-        echo '<input name="text" class="one1" type="checkbox" ' . $question->type == "TEXT" ? "checked" : "" . '>';
+        echo '<input name="text" class="one1" type="checkbox" ' . ($question->type == "TEXT" ? "checked" : "") . '>';
         echo '<label for="one1">Open vraag</label>';
-        echo '<input name="photo" class="two1" type="checkbox" ' . $question->type == "PHOTO" ? "checked" : "" . '>';
+        echo '<input name="photo" class="two1" type="checkbox" ' . ($question->type == "PHOTO" ? "checked" : "") . '>';
         echo '<label for="two1">Foto vraag</label></br>';
         echo '<textarea name="question" id="' . $response->data->scavengerHuntId . '" class="editSpeurtocht">' . $question->question . '</textarea>';
         echo '<button class="update" name="update">Bewerken</button>';
@@ -97,7 +97,7 @@
 
     echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
     echo '<form id="createForm" action="/server/scavengerHunt/create.php" method="POST">';
-    echo '<input type="hidden" name="Spid" value="'.$speurtocht_id.'">';
+    echo '<input type="hidden" name="Spid" value="' . $speurtocht_id . '">';
     echo '<input class="one1" type="checkbox" name="open">';
     echo '<label for="one1">Open vraag</label>';
     echo '<input class="two1" type="checkbox" name="photo">';
@@ -105,7 +105,7 @@
     echo '<textarea class="inputField1" id="inputField1" name="question" placeholder="Vul hier uw vraag in" required></textarea>';
     echo '<button class="buttonForm" type="submit" name="addquestion">Extra vraag toevoegen</button>';
     echo '</form>';
-    echo '</div>'; 
+    echo '</div>';
 
     ?>
 
