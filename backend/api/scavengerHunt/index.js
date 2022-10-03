@@ -4,8 +4,6 @@ const prisma = new PrismaClient()
 
 const router = Router()
 
-const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
-
 router.get("/", async (req, res) => {
     try {
         const data = await prisma.scavengerHunt.findMany({
@@ -24,17 +22,37 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.get("/:id", async (req, res) => {
-    const { id } = req.params
-    const { email } = req.body
+router.get("/owner/:ownerId", async (req, res) => {
+    const { ownerId } = req.params
+
+    try {
+        const data = await prisma.scavengerHunt.findMany({
+            where: {
+                ownerId
+            }
+        })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+})
+
+router.get("/:scavengerHuntId", async (req, res) => {
+    const { scavengerHuntId } = req.params
+    const { ownerId } = req.body
 
     try {
         const data = await prisma.scavengerHunt.findFirst({
             where: {
-                scavengerHuntId: id,
-                User: {
-                    email
-                }
+                scavengerHuntId,
+                ownerId
             }
         })
         if (data == null) {
@@ -62,18 +80,19 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const {
-        email,
+        ownerId,
         name,
         questions = [],
         status = "CLOSED",
         players = []
     } = req.body
 
+    console.log(req.cookies)
 
-    if (!email || !name) {
+    if (!ownerId || !name) {
         res.status(400).json({
             success: false,
-            message: "email and name are required fields."
+            message: "ownerId and name are required fields."
         })
         return
     }
@@ -81,11 +100,7 @@ router.post("/", async (req, res) => {
     try {
         const data = await prisma.scavengerHunt.create({
             data: {
-                User: {
-                    connect: {
-                        email
-                    }
-                },
+                ownerId,
                 name,
                 status,
                 questions: questions.length > 0 ? {
@@ -115,30 +130,18 @@ router.post("/", async (req, res) => {
 })
 
 router.delete("/", async (req, res) => {
-    const { email, id } = req.body
-
-    if (!emailRegex.test(email)) {
-        res.status(500).json({
-            success: false,
-            message: "Not a valid email."
-        })
-        return
-    }
+    const { id } = req.body
 
     try {
-        const deletedScavengerHunt = await prisma.user.update({
-            where: { email },
-            data: {
-                scavengerHunt: {
-                    delete: [{ scavengerHuntId: id }]
-                }
-            }
+        const deletedScavengerHunt = await prisma.scavengerHunt.delete({
+            where: { scavengerHuntId: id },
         })
         res.status(200).json({
             success: true,
             data: deletedScavengerHunt
         })
     } catch (error) {
+        console.error(error)
         res.status(500).json({
             success: false,
             message: "Internal server error."

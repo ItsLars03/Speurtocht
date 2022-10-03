@@ -8,14 +8,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="speurtocht.css">
+    <link rel="stylesheet" href="/speurtocht.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="speurtocht.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Black Han Sans' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
     <script src="https://cdn.socket.io/4.5.2/socket.io.js"></script>
-    <script src="./scripts/init.js"></script>
+    <script src="/scripts/init.js"></script>
+    <script src="/scripts/speurtocht.js"></script>
     <title>Speurtocht</title>
 </head>
 
@@ -30,3 +30,12 @@ $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
     // header('Location: index');
 // }
 ?>
+    <?php
+    if (!isset($_COOKIE["user-id"]) && str_starts_with($_SERVER['REQUEST_URI'], "/admin/")) {
+        header("location: /login.php");
+        return;
+    }
+    ?>
+</body>
+
+</html>
