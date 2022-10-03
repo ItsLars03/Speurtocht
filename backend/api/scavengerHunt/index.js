@@ -1,5 +1,7 @@
 import { Router } from 'express'
 import { PrismaClient } from '@prisma/client'
+import questions from './questions.js'
+
 const prisma = new PrismaClient()
 
 const router = Router()
@@ -53,6 +55,14 @@ router.get("/:scavengerHuntId", async (req, res) => {
             where: {
                 scavengerHuntId,
                 ownerId
+            },
+            select: {
+                scavengerHuntId: true,
+                ownerId: true,
+                name: true,
+                status: true,
+                players: true,
+                questions: true
             }
         })
         if (data == null) {
@@ -60,6 +70,7 @@ router.get("/:scavengerHuntId", async (req, res) => {
                 success: false,
                 message: "No record found with this id and email."
             })
+            return
         }
 
         res.status(200).json({
@@ -148,5 +159,7 @@ router.delete("/", async (req, res) => {
         })
     }
 })
+
+router.use("/questions", questions)
 
 export default router

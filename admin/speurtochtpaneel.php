@@ -17,7 +17,7 @@
     }
 
 
-    $response = API::get("/" . $_GET['id'], [
+    $response = API::get("/scavengerhunt/" . $_GET['id'], [
         "ownerId" => $_COOKIE['user-id'],
     ]);
 
@@ -56,47 +56,44 @@
     echo '<div class="speurtochtAanpassen">';
     echo '<h2>Vragen</h2>';
 
-    $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
-    $query = "SELECT * FROM questions WHERE scavengerHuntId='1'";
-    $result = mysqli_query($db, $query);
-    while ($row = $result->fetch_assoc()) {
-        $is_checked = '';
-        $is_checked_two = '';
-        if (($row['type']) == 'OPEN') {
-            $is_checked = 'checked';
-        } elseif (($row['type']) == 'PHOTO') {
-            $is_checked_two = 'checked';
-        }
+    $questions = (array) $response->data->questions;
+
+    foreach ($questions as $_question) {
+        $question = $_question;
         echo '<form id="editQuestion" action="speurtochtpaneel.php" method="POST">';
-        echo '<input type="hidden" name="id" value="' . $row['questionId'] . '">';
-        echo '<input name="open" class="one1" type="checkbox" ' . $is_checked . '>';
+        echo '<input type="hidden" name="id" value="' . $question->questionId . '">';
+        echo '<input name="text" class="one1" type="checkbox" ' . $question->type == "TEXT" ? "checked" : "" . '>';
         echo '<label for="one1">Open vraag</label>';
-        echo '<input name="photo" class="two1" type="checkbox" ' . $is_checked_two . '>';
+        echo '<input name="photo" class="two1" type="checkbox" ' . $question->type == "PHOTO" ? "checked" : "" . '>';
         echo '<label for="two1">Foto vraag</label></br>';
-        echo '<textarea name="speurtochtText" id="' . $row['scavengerHuntId'] . '" class="editSpeurtocht">' . $row['question'] . '</textarea>';
+        echo '<textarea name="question" id="' . $response->data->scavengerHuntId . '" class="editSpeurtocht">' . $question->question . '</textarea>';
         echo '<button class="update" name="update">Bewerken</button>';
         echo '</form>';
         if (isset($_POST['update'])) {
-            $speurtocht_id = $row['scavengerHuntId'];
-            $question_id = mysqli_real_escape_string($db, $_POST['id']);
-            $question_text = mysqli_real_escape_string($db, $_POST['speurtochtText']);
-
-            $question_type1 = mysqli_real_escape_string($db, $_POST['open']);
-            $question_type2 = mysqli_real_escape_string($db, $_POST['photo']);
-            $typee = '';
-            if (!empty($question_type1)) {
-                $typee = 'OPEN';
-            } elseif (!empty($question_type2)) {
-                $typee = 'PHOTO';
+            $type = $question->type;
+            if (isset($_POST['text']) && $type != "PHOTO") {
+                $type = "PHOTO";
             }
 
-            echo $question_id;
-            $query = "UPDATE questions SET question = '$question_text', type = '$typee' WHERE questionId = '" . $question_id . "'";
-            $result = mysqli_query($db, $query);
+            if (isset($_POST['photo']) && $type != "TEXT") {
+                $type = "TEXT";
+            }
 
-            header('Location: speurtochtpaneel?id=' . $speurtocht_id . '');
+            //updating.
+            $updateResponse = API::put("/scavengerhunt/questions/" . $_POST['id'], [
+                "question" => $_POST['question'],
+                "type" => $type
+            ]);
+
+            if (!isset($updateResponse) || !isset($updateResponse->success) || !$updateResponse->success) {
+                //TODO handle error...
+                return;
+            }
+
+            header('Location: speurtochtpaneel?id=' . $response->data->scavengerHuntId . '');
         }
     }
+
     echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
     echo '<form id="createForm" action="beheerderpaneel" method="POST">';
     echo '<input class="one1" type="checkbox">';
