@@ -23,7 +23,7 @@ if ($conn->connect_error)
 
 <html>
 <div id="wrapper">
-    <div id="div1">
+    <div id="sc1">
 <?php
 // 1th winner
 $query = "SELECT teamname AS tn_1th FROM results GROUP by points ORDER BY  points DESC LIMIT 0 , 1";
@@ -63,7 +63,7 @@ while ($row = mysqli_fetch_assoc($query_result))
 ?>
 </div>
 
-<div id="div2">
+<div id="sc2">
 
 <?php
 // 1th winner
