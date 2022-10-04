@@ -9,7 +9,7 @@ module.exports = {
             log_date_format: "YYYY_MM_DD HH:mm:ss Z",
             exec_interpreter: "",
             exec_mode: "fork",
-            watch: ["src/**"],
+            watch: ["./**"],
             autorestart: true,
             vizion: true,
         },
