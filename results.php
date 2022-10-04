@@ -10,6 +10,7 @@
           die("Connection failed: " . $conn->connect_error);
       }
       ?>
+    
    <html>
       <div id="wrapper">
          <div id="sc1">
