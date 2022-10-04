@@ -13,8 +13,18 @@ if (!isset($_GET['email']) || !isset($_GET['password'])) {
     header('Location: ../login.php');
 }
 
+// $existingHashFromDb = '$2y$10$dM55BFS8Ln8mHx.wMFAgqe7sr';
+// $email = 'lars@lars.com';
 $email = $_GET['email'];
 $password = $_GET['password'];
+//$isPasswordCorrect = password_verify($_POST['password'], $existingHashFromDb);
+// if (password_verify($_POST['password'], $existingHashFromDb)) {
+//     echo 'Password is valid!';
+//     $erroCode = 2;
+// } else {
+//     echo 'Invalid password.';
+//     $erroCode = 2;
+// };
 
 $response = API::get("/users/login", [
     "email" => $email,
