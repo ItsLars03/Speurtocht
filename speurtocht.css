@@ -324,4 +324,43 @@ form {
   color: transparent;
   color: #5248b3;
 }
-
+/*========================================================================
+  Scorebord
+/*=======================================================================*/
+.\31 th{
+  color: gold
+}
+.\32 th{
+  color: #C0C0C0
+}
+.\33 th{
+  color: #cd7f32
+}
+.losers {
+  color: #fff;
+}
+.scoreboard {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: 'Black Han Sans';
+}
+#wrapper {
+  border: 3px solid white;
+  margin: 0 auto;
+  width: auto;
+  border-radius: 10px;
+  background-color: #fff0;
+}
+#sc1 {
+  display: inline-block;
+  width:60%;
+  height:120px;
+}
+#sc2 {
+  display: inline-block;
+  width:25%;
+  height:160px;
+}

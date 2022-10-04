@@ -1,7 +1,7 @@
-import { Router } from 'express'
-import { PrismaClient } from '@prisma/client'
-import questions from './questions.js'
-import players from './players.js'
+const { Router } = require('express')
+const { PrismaClient } = require('@prisma/client')
+const questions = require('./questions.js')
+const players = require('./players.js')
 
 const prisma = new PrismaClient()
 
@@ -164,4 +164,4 @@ router.delete("/", async (req, res) => {
 router.use("/questions", questions)
 router.use("/players", players)
 
-export default router
+module.exports = router

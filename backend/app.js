@@ -1,11 +1,11 @@
-import express from 'express'
-import morgan from 'morgan'
-import helmet from 'helmet'
-import cors from 'cors'
-import { Server } from 'socket.io'
-import { createServer } from 'http'
+const express = require('express')
+const morgan = require('morgan')
+const helmet = require('helmet')
+const cors = require('cors')
+const { Server } = require('socket.io')
+const { createServer } = require('http')
 
-import api from './api/index.js'
+const api = require('./api/index.js')
 
 const app = express()
 const httpServer = createServer()
@@ -29,4 +29,4 @@ io.on("connection", (socket) => {
 
 httpServer.listen(5002)
 
-export default app
+module.exports = app

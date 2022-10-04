@@ -1,21 +1,20 @@
-import { Router } from 'express'
-import { PrismaClient } from '@prisma/client'
+const { Router } = require('express')
+const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const router = Router()
 
+const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+
+
 //get specific player
 router.get("/:playerId", async (req, res) => {
     const { playerId } = req.params
-    const { scavengerHuntId } = req.body
 
     try {
 
         const data = await prisma.players.findFirst({
             where: {
-                scavengerHunt: {
-                    scavengerHuntId
-                },
                 playerId
             }
         })
@@ -47,11 +46,17 @@ router.get("/:playerId", async (req, res) => {
 router.get("/", async (req, res) => {
     const { scavengerHuntId } = req.body
 
-
     try {
+        const data = await prisma.players.findMany({
+            where: {
+                scavengerHuntId
+            }
+        })
 
-
-
+        res.status(200).json({
+            success: true,
+            data
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({
@@ -64,11 +69,24 @@ router.get("/", async (req, res) => {
 //update player
 router.put("/:playerId", async (req, res) => {
     const { playerId } = req.params
-    const { scavengerHuntId } = req.body
-
+    const { name, email } = req.body
 
     try {
 
+        const data = await prisma.players.update({
+            where: {
+                playerId
+            },
+            data: {
+                name,
+                email
+            }
+        })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({
@@ -80,10 +98,38 @@ router.put("/:playerId", async (req, res) => {
 
 //create player
 router.post("/", async (req, res) => {
-    const { scavengerHuntId } = req.body
+    const { scavengerHuntId, name, email } = req.body
+
+    if (!emailRegex.test(email)) {
+        res.status(400).json({
+            success: false,
+            message: "Invalid email."
+        })
+        return
+    }
 
     try {
+        const data = await prisma.players.create({
+            data: {
+                scavengerHuntId,
+                name,
+                email
+            },
 
+        })
+
+        //delete emails as the player has joined.
+        prisma.emails.deleteMany({
+            where: {
+                email,
+                scavengerHuntId
+            }
+        }).catch(() => { })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({
@@ -93,5 +139,28 @@ router.post("/", async (req, res) => {
     }
 })
 
+router.delete("/:playerId", async (req, res) => {
+    const { playerId } = req.params
 
-export default router
+    try {
+
+        const data = await prisma.players.delete({
+            where: {
+                playerId
+            },
+        })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+})
+
+module.exports = router
