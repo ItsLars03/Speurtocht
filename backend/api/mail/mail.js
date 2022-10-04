@@ -1,5 +1,5 @@
-import { Router } from "express";
-import nodemailer from 'nodemailer'
+const { Router } = require("express")
+const nodemailer = require('nodemailer')
 
 const router = Router()
 

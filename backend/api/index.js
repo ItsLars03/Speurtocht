@@ -1,8 +1,8 @@
-import { Router } from "express";
-import login from './user/login/index.js'
-import scavengerhunt from './scavengerHunt/index.js'
-import users from './user/users.js'
-import sendMail from './mail/mail.js'
+const { Router } = require("express")
+const login = require('./user/login/index.js')
+const scavengerhunt = require('./scavengerHunt/index.js')
+const users = require('./user/users.js')
+const sendMail = require('./mail/mail.js')
 
 const router = Router()
 
