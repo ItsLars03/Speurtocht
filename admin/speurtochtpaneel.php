@@ -7,13 +7,15 @@
     </div>
 
     <?php
+    echo '<div class="backButton2">';
+    echo '<i class="fas fa-arrow-left"></i>';
+    echo '</div>';
     // Get ID of the selected 'speurtocht'
     // and the ID of the user
 
     if (!isset($_GET['id'])) {
         //TODO maybe add error message?
-        // header("location: /admin/beheerderpaneel.php");
-        echo '0';
+        header("location: /admin/beheerderpaneel.php");
         return;
     }
 
@@ -43,13 +45,11 @@
         echo '<a class="speurtocht">Speurtocht starten</a>';
         echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
     }
-    echo '<a class="speurtocht">Resultaten nakijken</a>';
+    echo '<a class="speurtocht resultMenu">Resultaten nakijken</a>';
     echo '<a class="speurtocht">Eindresultaten bekijken</a>';
     echo '<a class="speurtocht">Deelnemers verwijderen</a>';
     echo '<a class="speurtocht">Speurtocht verwijderen</a>';
     echo '</div>';
-
-    // SPEURTOCHT STARTEN //
 
 
 
@@ -95,6 +95,7 @@
         }
     }
 
+
     echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
     echo '<form id="createForm" action="/server/scavengerHunt/create.php" method="POST">';
     echo '<input type="hidden" name="Spid" value="' . $speurtocht_id . '">';
@@ -105,6 +106,42 @@
     echo '<textarea class="inputField1" id="inputField1" name="question" placeholder="Vul hier uw vraag in" required></textarea>';
     echo '<button class="buttonForm" type="submit" name="addquestion">Extra vraag toevoegen</button>';
     echo '</form>';
+    echo '</div>';
+
+
+    // SPEURTOCHT VRAGEN CONTROLEREN //
+    echo '<div class="speurtochtControle">';
+    echo '<h2>Controleer vragen</h2>';
+
+    echo '<div class="questionBox">';
+    $queryNr0 = "SELECT * FROM questions WHERE scavengerHuntId='$speurtocht_id'";
+    $resultNr0 = mysqli_query($db, $queryNr0);
+    while ($row = $resultNr0->fetch_assoc()) {
+        echo '<div class="singleQuestion">';
+        $question_id = $row['questionId'];
+        echo '<p class="item question"><span>Vraag:<br></span> '.$row['question'].'</p>';
+
+        $queryNr1 = "SELECT * FROM answers WHERE questionId='$question_id'";
+        $resultNr1 = mysqli_query($db, $queryNr1);
+        while ($row = $resultNr1->fetch_assoc()) {
+            // $question_id = $row['questionId'];
+            $player_id = $row['playerId'];
+            
+            echo '<form id="checkForm" action="/server/scavengerHunt/create.php" method="POST">';
+            echo '<input type="hidden" value="'.$speurtocht_id.'" name="id">';
+            echo '<input type="hidden" value="'.$player_id.'" name="playerId">';
+            echo '<input type="hidden" value="'.$question_id.'" name="questionId">';
+            echo '<p class="item player"><span>Speler/Groep:</span> '.$row['playerId'].'</p>';
+            echo '<textarea class="item awnser" readonly>'.$row['answer'].'</textarea>';
+
+            echo '<button class="check good" type="submit" name="Good"> Goed </button>';
+            echo '<button class="check wrong" type="submit" name="Wrong"> Fout </button>';
+            echo '</form>';
+        }
+        echo '</div>';
+    }
+    echo '</div>';
+
     echo '</div>';
 
     ?>

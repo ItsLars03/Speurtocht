@@ -3,6 +3,7 @@ h2,
 h3,
 p,
 a,
+span,
 button,
 input,
 label {
@@ -10,6 +11,10 @@ label {
   padding: 0;
   color: #fff;
   text-decoration: none;
+  word-wrap: break-word;
+}
+span {
+  font-weight: bold;
 }
 textarea {
   resize: none;
@@ -134,7 +139,17 @@ form .inputField1 {
   cursor: pointer;
   display: none;
 }
-.backButton i {
+.backButton2 {
+  width: max-content;
+  margin: 0 auto;
+  right: 7em;
+  top: 3.1em;
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+.backButton i,
+.backButton2 i {
   font-weight: bold;
   font-size: 28px;
   color: #fff;
@@ -158,7 +173,7 @@ form .inputField1 {
 }
 .speurtochtStarten,
 .speurtochtAanpassen,
-.ResultatenNakijken,
+.speurtochtControle,
 .eindresultatenBekijken,
 .deelnemersVerwijderen,
 .speurtochtVerwijderen {
@@ -170,10 +185,15 @@ form .inputField1 {
 }
 .speurtochtAanpassen h2,
 .speurtochtStarten h2,
+.speurtochtControle h2,
 .speurtochtAanpassen input,
 .speurtochtAanpassen label,
 .speurtochtTitel {
   text-align: center;
+}
+.speurtochtTitel {
+  width: 50%;
+  margin: 20px auto;
 }
 .speurtochtAanpassen label {
   margin: 10px 10px 10px 0px;
@@ -229,6 +249,50 @@ input[type="checkbox"] {
 }
 #editQuestion {
   margin: 36px 0px;
+}
+/*========================================================================
+  Check answers
+/*=======================================================================*/
+.questionBox {
+  margin: 0 auto;
+  width: 60%;
+}
+.questionBox .item {
+  margin: 10px 0px;
+}
+.questionBox .question {
+  font-size: 18px;
+  text-align: center;
+}
+.questionBox .player {
+  margin-top: 22px;
+  text-align: center;
+}
+.questionBox .awnser {
+  display: block;
+  margin: 0 auto;
+}
+.question span {
+  font-size: 22px;
+}
+.singleQuestion {
+  border: 3px solid #fff;
+  border-radius: 8px;
+  margin: 14px 0px;
+  padding: 8px;
+}
+.check {
+  font-weight: bold;
+  font-size: 16px;
+  background: green;
+  padding: 4px 10px;
+  margin: 5px 6px 0px 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+}
+.check.wrong {
+  background-color: red;
 }
 /*========================================================================
   Inloggen & Registreren form

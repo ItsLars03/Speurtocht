@@ -7,6 +7,7 @@
     </div>
 
     <?php
+    
     echo '<div class="speurtochtenBox">';
     $ownerId = $_COOKIE['user-id'];
 

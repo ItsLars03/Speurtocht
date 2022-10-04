@@ -29,23 +29,37 @@ $(document).ready(function(){
         $('.speurtochtenBoxMenu').css("display", "flex");
         $('.speurtochtAanpassen').css("display", "none");
         $('.speurtochtStarten').css("display", "none");
+        $('.speurtochtControle').css("display", "none");
+        $('.backButton2').css("display", "block");
         $('.backButton').css("display", "none");
+    });
+    $(".backButton2").click(function(){
+        window.location.href = '/admin/beheerderpaneel';
+        // $('.backButton').css("display", "none");
     });
     
 
-
-    // AANPASSEN //
-    $(".AanpassenMenu").click(function(){
-        $('.speurtochtenBoxMenu').css("display", "none");
-        $('.speurtochtAanpassen').css("display", "block");
-        $('.backButton').css("display", "block");
-    });
     // START //
     $(".startMenu").click(function(){
         $('.speurtochtenBoxMenu').css("display", "none");
         $('.speurtochtStarten').css("display", "block");
         $('.backButton').css("display", "block");
     });
+    // AANPASSEN //
+    $(".AanpassenMenu").click(function(){
+        $('.speurtochtenBoxMenu').css("display", "none");
+        $('.speurtochtAanpassen').css("display", "block");
+        $('.backButton2').css("display", "none");
+        $('.backButton').css("display", "block");
+    });
+    // CONTROLEREN //
+    $(".resultMenu").click(function(){
+        $('.speurtochtenBoxMenu').css("display", "none");
+        $('.speurtochtControle').css("display", "block");
+        $('.backButton2').css("display", "none");
+        $('.backButton').css("display", "block");
+    });
+
     // Prevent both options being selected
     $('.one1').click(function(){
         if($(this).prop("checked") == true){
