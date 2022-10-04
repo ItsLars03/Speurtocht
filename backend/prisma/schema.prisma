@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  userId   String  @id @unique @default(uuid())
-  nickname String? @db.VarChar(50)
-  email    String  @unique @db.VarChar(64)
-  password String  @db.VarChar(32)
+  userId    String   @id @unique @default(uuid())
+  nickname  String?  @db.VarChar(50)
+  email     String   @unique @db.VarChar(64)
+  password  String   @db.VarChar(32)
+  createdAt DateTime @default(now())
 
   scavengerHunt ScavengerHunt[]
 }
@@ -21,11 +22,13 @@ model ScavengerHunt {
   ownerId         String
   name            String              @db.VarChar(32)
   status          ScavengerHuntStatus
+  createdAt       DateTime            @default(now())
 
   User User @relation(fields: [ownerId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
 
   players   Players[]
   questions Questions[]
+  emails    Emails[]
 }
 
 model Questions {
@@ -33,6 +36,7 @@ model Questions {
   scavengerHuntId String
   question        String       @db.VarChar(500)
   type            QuestionType
+  createdAt       DateTime     @default(now())
 
   scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 
@@ -45,20 +49,31 @@ model Answers {
   playerId   String
   answer     String   @db.VarChar(500)
   correct    Boolean?
+  createdAt  DateTime @default(now())
 
   questions Questions @relation(fields: [questionId], references: [questionId], onDelete: Cascade, onUpdate: Cascade)
   players   Players   @relation(fields: [playerId], references: [playerId], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Players {
-  playerId        String @id @unique @default(uuid())
+  playerId        String   @id @unique @default(uuid())
   scavengerHuntId String
-  name            String @db.VarChar(32)
-  email           String @db.VarChar(64)
+  name            String   @db.VarChar(32)
+  email           String   @db.VarChar(64)
+  createdAt       DateTime @default(now())
 
   scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 
   answers Answers[]
+}
+
+model Emails {
+  emailId         String   @id @unique @default(uuid())
+  scavengerHuntId String
+  email           String   @db.VarChar(32)
+  createdAt       DateTime @default(now())
+
+  scavengerHunt ScavengerHunt @relation(fields: [scavengerHuntId], references: [scavengerHuntId], onDelete: Cascade, onUpdate: Cascade)
 }
 
 enum ScavengerHuntStatus {
