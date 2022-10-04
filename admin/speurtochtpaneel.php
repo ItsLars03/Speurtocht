@@ -61,38 +61,15 @@
 
     foreach ($questions as $_question) {
         $question = $_question;
-        echo '<form id="editQuestion" action="speurtochtpaneel.php" method="POST">';
+        echo '<form id="editQuestion" action="/server/scavengerHunt/update.php" method="POST">';
         echo '<input type="hidden" name="id" value="' . $question->questionId . '">';
         echo '<input name="text" class="one1" type="checkbox" ' . ($question->type == "TEXT" ? "checked" : "") . '>';
         echo '<label for="one1">Open vraag</label>';
         echo '<input name="photo" class="two1" type="checkbox" ' . ($question->type == "PHOTO" ? "checked" : "") . '>';
         echo '<label for="two1">Foto vraag</label></br>';
         echo '<textarea name="question" id="' . $response->data->scavengerHuntId . '" class="editSpeurtocht">' . $question->question . '</textarea>';
-        echo '<button class="update" name="update">Bewerken</button>';
+        echo '<button class="update" name="update-scavengerhunt">Bewerken</button>';
         echo '</form>';
-        if (isset($_POST['update'])) {
-            $type = $question->type;
-            if (isset($_POST['text']) && $type != "PHOTO") {
-                $type = "PHOTO";
-            }
-
-            if (isset($_POST['photo']) && $type != "TEXT") {
-                $type = "TEXT";
-            }
-
-            //updating.
-            $updateResponse = API::put("/scavengerhunt/questions/" . $_POST['id'], [
-                "question" => $_POST['question'],
-                "type" => $type
-            ]);
-
-            if (!isset($updateResponse) || !isset($updateResponse->success) || !$updateResponse->success) {
-                //TODO handle error...
-                return;
-            }
-
-            header('Location: speurtochtpaneel?id=' . $response->data->scavengerHuntId . '');
-        }
     }
 
 

@@ -2,6 +2,8 @@ const { Router } = require('express')
 const { PrismaClient } = require('@prisma/client')
 const questions = require('./questions.js')
 const players = require('./players.js')
+const answers = require("./answers.js")
+const results = require("./results.js")
 
 const prisma = new PrismaClient()
 
@@ -163,5 +165,7 @@ router.delete("/", async (req, res) => {
 
 router.use("/questions", questions)
 router.use("/players", players)
+router.use("/answers", answers)
+router.use("/results", results)
 
 module.exports = router
