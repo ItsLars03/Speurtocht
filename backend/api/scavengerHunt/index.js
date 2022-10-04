@@ -164,4 +164,4 @@ router.delete("/", async (req, res) => {
 router.use("/questions", questions)
 router.use("/players", players)
 
-export default router
+module.exports = router

@@ -20,4 +20,4 @@ router.use("/users", users)
 router.use("/scavengerhunt", scavengerhunt)
 router.use("/mail", sendMail)
 
-export default router
+module.exports = router

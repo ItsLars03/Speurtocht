@@ -59,4 +59,4 @@ router.put("/:questionId", async (req, res) => {
 })
 
 
-export default router
+module.exports = router

@@ -29,4 +29,4 @@ io.on("connection", (socket) => {
 
 httpServer.listen(5002)
 
-export default app
+module.exports = app
