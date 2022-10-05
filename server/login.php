@@ -33,7 +33,7 @@ $response = API::get("/users/login", [
 
 if (!isset($response) || !isset($response->success) || !isset($response->data) || !$response->success) {
     if (!isset($response) || !isset($response->message)) {
-        header("location: ../login");
+        header("location: ../login.php");
         return;
     }
 

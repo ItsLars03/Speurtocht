@@ -18,8 +18,8 @@ router.get("/", async (req, res) => {
                 name: true,
                 status: true,
                 players: true,
-                questions: true
-            }
+                questions: true,
+            },
         })
         res.status(200).json({ success: true, data })
     } catch (error) {
@@ -34,6 +34,9 @@ router.get("/owner/:ownerId", async (req, res) => {
         const data = await prisma.scavengerHunt.findMany({
             where: {
                 ownerId
+            },
+            orderBy: {
+                createdAt: "asc"
             }
         })
 
@@ -42,6 +45,7 @@ router.get("/owner/:ownerId", async (req, res) => {
             data
         })
     } catch (error) {
+        console.error(error)
         res.status(500).json({
             success: false,
             message: "Internal server error."

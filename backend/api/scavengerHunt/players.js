@@ -50,6 +50,9 @@ router.get("/", async (req, res) => {
         const data = await prisma.players.findMany({
             where: {
                 scavengerHuntId
+            },
+            orderBy: {
+                createdAt: "asc"
             }
         })
 

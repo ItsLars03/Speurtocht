@@ -100,6 +100,9 @@ router.get("/player/:playerId", async (req, res) => {
         const data = prisma.answers.findMany({
             where: {
                 playerId
+            },
+            orderBy: {
+                createdAt: "asc"
             }
         })
 
@@ -114,6 +117,40 @@ router.get("/player/:playerId", async (req, res) => {
             message: "Internal server error."
         })
     }
+})
+
+router.get("/getbyquestion/:scavengerHuntId", async (req, res) => {
+    const { scavengerHuntId } = req.params
+
+    try {
+        const data = await prisma.questions.findMany({
+            where: {
+                scavengerHuntId
+            },
+            select: {
+                questionId: true,
+                scavengerHuntId: true,
+                question: true,
+                type: true,
+                answers: true
+            },
+            orderBy: {
+                createdAt: "asc"
+            }
+        })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: true,
+            message: "Internal server error."
+        })
+    }
+
 })
 
 module.exports = router
