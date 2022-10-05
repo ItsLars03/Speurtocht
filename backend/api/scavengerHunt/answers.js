@@ -116,4 +116,4 @@ router.get("/player/:playerId", async (req, res) => {
     }
 })
 
-export default router
+module.exports = router
