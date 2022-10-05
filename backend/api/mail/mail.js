@@ -51,6 +51,9 @@ router.get("/scavengerhunt/:scavengerHuntId", async (req, res) => {
         const data = await prisma.emails.findMany({
             where: {
                 scavengerHuntId
+            },
+            orderBy: {
+                createdAt: "asc"
             }
         })
 

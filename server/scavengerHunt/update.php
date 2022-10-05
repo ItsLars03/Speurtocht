@@ -1,11 +1,8 @@
 <?php
 include("../../utils/api.php");
 
-var_dump($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['update-scavengerhunt'])) {
-        // $type = $question->type;
-        echo "test1";
         $type = "";
 
         if ((isset($_POST['text']) && isset($_POST['photo'])) || (!isset($_POST['text']) && !isset($_POST['photo']))) {
@@ -15,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (isset($_POST['text'])) {
-            $type = "PHOTO";
+            $type = "TEXT";
         }
 
         if (isset($_POST['photo'])) {
-            $type = "TEXT";
+            $type = "PHOTO";
         }
 
         //updating.
@@ -30,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!isset($updateResponse) || !isset($updateResponse->success) || !$updateResponse->success) {
             //TODO handle error...
-            echo $response->message;
+            echo $updateResponse->message;
             return;
         }
 
-        header('Location: speurtochtpaneel?id=' . $response->data->scavengerHuntId);
+        header('Location: /admin/speurtochtpaneel.php?id=' . $updateResponse->data->scavengerHuntId);
     }
 }

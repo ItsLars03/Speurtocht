@@ -30,8 +30,8 @@
         return;
     }
 
-    $speurtocht_id = $_GET['id'];
-    // $query = "SELECT * FROM scavengerhunt WHERE scavengerHuntId='$speurtocht_id'";
+    $scavengerHuntId = $_GET['id'];
+    // $query = "SELECT * FROM scavengerhunt WHERE scavengerHuntId='$scavengerHuntId'";
     // $result = mysqli_query($db, $query);
     // $row = $result->fetch_assoc();
     // Go back button
@@ -82,7 +82,7 @@
 
     echo '<h2 class="extraQuestions"> Extra vragen toevoegen </h2>';
     echo '<form id="createForm" action="/server/scavengerHunt/create.php" method="POST">';
-    echo '<input type="hidden" name="Spid" value="' . $speurtocht_id . '">';
+    echo '<input type="hidden" name="Spid" value="' . $scavengerHuntId . '">';
     echo '<input class="one1" type="checkbox" name="open">';
     echo '<label for="one1">Open vraag</label>';
     echo '<input class="two1" type="checkbox" name="photo">';
@@ -98,31 +98,34 @@
     echo '<h2>Controleer vragen</h2>';
 
     echo '<div class="questionBox">';
-    $queryNr0 = "SELECT * FROM questions WHERE scavengerHuntId='$speurtocht_id'";
-    $resultNr0 = mysqli_query($db, $queryNr0);
-    while ($row = $resultNr0->fetch_assoc()) {
-        echo '<div class="singleQuestion">';
-        $question_id = $row['questionId'];
-        echo '<p class="item question"><span>Vraag:<br></span> '.$row['question'].'</p>';
 
-        $queryNr1 = "SELECT * FROM answers WHERE questionId='$question_id'";
-        $resultNr1 = mysqli_query($db, $queryNr1);
-        while ($row = $resultNr1->fetch_assoc()) {
-            // $question_id = $row['questionId'];
-            $player_id = $row['playerId'];
-            
-            echo '<form id="checkForm" action="/server/scavengerHunt/create.php" method="POST">';
-            echo '<input type="hidden" value="'.$speurtocht_id.'" name="id">';
-            echo '<input type="hidden" value="'.$player_id.'" name="playerId">';
-            echo '<input type="hidden" value="'.$question_id.'" name="questionId">';
-            echo '<p class="item player"><span>Speler/Groep:</span> '.$row['playerId'].'</p>';
-            echo '<textarea class="item awnser" readonly>'.$row['answer'].'</textarea>';
+    $questionRes = API::get("/scavengerhunt/answers/getbyquestion/" . $scavengerHuntId, array());
 
-            echo '<button class="check good" type="submit" name="Good"> Goed </button>';
-            echo '<button class="check wrong" type="submit" name="Wrong"> Fout </button>';
-            echo '</form>';
+    if (!isset($questionRes) || !isset($questionRes->success) || !$questionRes->success || !isset($questionRes->data)) {
+        //Handle error.
+    } else {
+        foreach ((array) $questionRes->data as $_question) {
+            $question = $_question;
+            echo '<div class="singleQuestion">';
+            echo '<p class="item question"><span>Vraag:<br></span> ' . $question->question . '</p>';
+
+            foreach ($question->answers as $_answer) {
+                $answer = $_answer;
+                // $question_id = $row['questionId'];
+
+                echo '<form id="checkForm" action="/server/scavengerHunt/create.php" method="POST">';
+                echo '<input type="hidden" value="' . $question->scavengerHuntId . '" name="scavengerHuntId">';
+                // echo '<input type="hidden" value="' . $answer->playerId . '" name="playerId">';
+                echo '<input type="hidden" value="' . $answer->answerId . '" name="answerId">';
+                echo '<p class="item player"><span>Speler/Groep:</span> ' . $answer->playerId . '</p>';
+                echo '<textarea class="item awnser" readonly>' . $answer->answer . '</textarea>';
+
+                echo '<button class="check good" type="submit" name="correcting-answer-good"> Goed </button>';
+                echo '<button class="check wrong" type="submit" name="correcting-answer-wrong"> Fout </button>';
+                echo '</form>';
+            }
+            echo '</div>';
         }
-        echo '</div>';
     }
     echo '</div>';
 
