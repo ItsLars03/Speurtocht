@@ -45,14 +45,30 @@
         echo '<a class="speurtocht">Speurtocht starten</a>';
         echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
     }
-    $queryA = "SELECT COUNT(*) FROM answers LEFT JOIN questions USING (questionId) WHERE scavengerHuntId='$scavengerHuntId' AND correct IS NULL";
-    $resultA = mysqli_query($db, $queryA);
-    $count = mysqli_fetch_array($resultA);
+
+    $unAnsweredRes = API::get("/scavengerhunt/answers/getall/" . $scavengerHuntId, array());
+
+
+    $unReadAnswers = 0;
+
+    if (!isset($unAnsweredRes) || !isset($unAnsweredRes->success) || !$unAnsweredRes->success || !isset($unAnsweredRes->data)) {
+        //TODO: handle error.
+    } else {
+        $answers = $unAnsweredRes->data;
+        $unReadAnswers = count(array_filter((array) $answers, function ($v) {
+            return !isset($v->correct);
+        }, ARRAY_FILTER_USE_BOTH));
+    }
+
+
+    // $queryA = "SELECT COUNT(*) FROM answers LEFT JOIN questions USING (questionId) WHERE scavengerHuntId='$scavengerHuntId' AND correct IS NULL";
+    // $resultA = mysqli_query($db, $queryA);
+    // $count = mysqli_fetch_array($resultA);
 
     // while ($row = $resultA->fetch_assoc()) {
 
     // }
-    echo '<a class="speurtocht resultMenu">Resultaten nakijken ('.$count[0].')</a>';
+    echo '<a class="speurtocht resultMenu">Resultaten nakijken (' . $unReadAnswers . ')</a>';
     echo '<a class="speurtocht" href="/results.php">Eindresultaten bekijken</a>';
     echo '<a class="speurtocht">Deelnemers verwijderen</a>';
     echo '<a class="speurtocht">Speurtocht verwijderen</a>';
