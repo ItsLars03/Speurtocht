@@ -41,8 +41,6 @@ usort($players, function ($a, $b) {
     <div id="wrapper">
         <div id="sc1">
             <?php
-
-
             foreach ($players as $index => $player) {
                 switch ($index) {
                     case 0:
@@ -62,7 +60,6 @@ usort($players, function ($a, $b) {
         </div>
         <div id="sc2">
             <?php
-
             foreach ($players as $index => $player) {
                 $points = isset($player->answers) ? count(array_filter($player->answers, function ($v) {
                     return isset($v) && isset($v->correct) && $v->correct;
@@ -81,48 +78,9 @@ usort($players, function ($a, $b) {
                         echo '<div class="scoreboard losers">' . $points . "</div>";
                 }
             }
-
-            // // 1th winner
-            // $query = "SELECT teamname , MAX(points) AS 1th FROM `results` WHERE speurtocht_id = '0'";
-            // $query_result = mysqli_query($conn, $query);
-
-            // while ($row = mysqli_fetch_assoc($query_result)) {
-            //     echo '<div class="scoreboard 1th">' . $row["1th"] . "</div>";
-            // }
-
-            // // 2th winner
-            // $query =
-            //     "SELECT teamname , points AS 2th FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 1 , 1";
-            // $query_result = mysqli_query($conn, $query);
-
-            // while ($row = mysqli_fetch_assoc($query_result)) {
-            //     echo '<div class="scoreboard 2th">' . $row["2th"] . "</div>";
-            // }
-
-            // // 3th winner
-            // $query =
-            //     "SELECT teamname , points AS 3th FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 2 , 1";
-            // $query_result = mysqli_query($conn, $query);
-
-            // while ($row = mysqli_fetch_assoc($query_result)) {
-            //     echo '<div class="scoreboard 3th">' . $row["3th"] . "</div>";
-            // }
-
-            // // losers
-            // $query =
-            //     "SELECT teamname , points AS losers FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 3 , 10";
-            // $query_result = mysqli_query($conn, $query);
-
-            // while ($row = mysqli_fetch_assoc($query_result)) {
-            //     echo '<div class="scoreboard losers">' . $row["losers"] . "</div>";
-            // }
             ?>
         </div>
     </div>
 
     </html>
-    <?php // $sql = "SELECT * FROM results ORDER BY points DESC limit 10";
-    // $result = $conn->query($sql);
-
-    $conn->close(); ?>
     <html>
