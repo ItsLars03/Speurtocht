@@ -17,7 +17,7 @@
             <?php
                // 1th winner
                $query =
-                   "SELECT teamname AS tn_1th FROM results GROUP by points ORDER BY  points DESC LIMIT 0 , 1";
+                   "SELECT teamname AS tn_1th FROM results WHERE speurtocht_id = '0'  GROUP by points ORDER BY points  DESC LIMIT 0 , 1";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -26,7 +26,7 @@
                
                // 2th winner
                $query =
-                   "SELECT teamname AS tn_2th FROM results GROUP by points ORDER BY  points DESC LIMIT 1 , 1";
+                   "SELECT teamname AS tn_2th FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 1 , 1";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -35,7 +35,7 @@
                
                // 3th winner
                $query =
-                   "SELECT teamname AS tn_3th FROM results GROUP by points ORDER BY  points DESC LIMIT 2 , 1";
+                   "SELECT teamname AS tn_3th FROM results WHERE speurtocht_id = '0'  GROUP by points ORDER BY  points DESC LIMIT 2 , 1";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -44,7 +44,7 @@
                
                // losers
                $query =
-                   "SELECT teamname AS tn_losers FROM results GROUP by points ORDER BY  points DESC LIMIT 3 , 10";
+                   "SELECT teamname AS tn_losers FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 3 , 10";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -55,7 +55,7 @@
          <div id="sc2">
             <?php
                // 1th winner
-               $query = "SELECT teamname , MAX(points) AS 1th FROM `results`";
+               $query = "SELECT teamname , MAX(points) AS 1th FROM `results` WHERE speurtocht_id = '0'";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -64,7 +64,7 @@
                
                // 2th winner
                $query =
-                   "SELECT teamname , points AS 2th FROM results GROUP by points ORDER BY  points DESC LIMIT 1 , 1";
+                   "SELECT teamname , points AS 2th FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 1 , 1";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -73,7 +73,7 @@
                
                // 3th winner
                $query =
-                   "SELECT teamname , points AS 3th FROM results GROUP by points ORDER BY  points DESC LIMIT 2 , 1";
+                   "SELECT teamname , points AS 3th FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 2 , 1";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
@@ -82,7 +82,7 @@
                
                // losers
                $query =
-                   "SELECT teamname , points AS losers FROM results GROUP by points ORDER BY  points DESC LIMIT 3 , 10";
+                   "SELECT teamname , points AS losers FROM results WHERE speurtocht_id = '0' GROUP by points ORDER BY  points DESC LIMIT 3 , 10";
                $query_result = mysqli_query($conn, $query);
                
                while ($row = mysqli_fetch_assoc($query_result)) {
