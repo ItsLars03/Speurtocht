@@ -1,6 +1,8 @@
 const { Router } = require('express')
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const multer = require("multer")
+const fs = require("node:fs")
 
 const router = Router()
 
@@ -62,6 +64,69 @@ router.post("/", async (req, res) => {
             message: "Internal server error."
         })
     }
+})
+
+router.route("/image").post(multer().single("image"), async (req, res) => {
+    const { questionId, playerId, correct } = req.body
+
+    console.log("body", req.body)
+
+    console.log("file", req.file)
+    let path
+
+    try {
+
+        const { scavengerHuntId } = await prisma.questions.findFirst({
+            where: {
+                questionId
+            },
+            select: {
+                scavengerHuntId: true
+            }
+        })
+
+        path = `images/${scavengerHuntId}/${questionId}/${playerId}.${req.file.originalname.split(".").pop()}`
+
+        if (!fs.existsSync("images")) {
+            fs.mkdirSync("images")
+        }
+
+        if (!fs.existsSync(`images/${scavengerHuntId}`)) {
+            fs.mkdirSync(`images/${scavengerHuntId}`)
+        }
+
+        if (!fs.existsSync(`images/${scavengerHuntId}/${questionId}`)) {
+            fs.mkdirSync(`images/${scavengerHuntId}/${questionId}`)
+        }
+
+        fs.stat(path, (err, cb) => {
+            console.log("stats", cb)
+        })
+
+        fs.writeFileSync(`images/${scavengerHuntId}/${questionId}/${playerId}.${req.file.originalname.split(".").pop()}`, req.file.buffer)
+
+        const data = await prisma.answers.create({
+            data: {
+                questionId,
+                playerId,
+                answer: path,
+                correct: correct != null ? Boolean(correct) : correct
+            }
+        })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
+    } catch (error) {
+        console.error(error)
+        // if (path != null) fs.unlinkSync(path)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+
 })
 
 router.put("/:answerId", async (req, res) => {
