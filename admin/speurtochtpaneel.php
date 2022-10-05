@@ -53,7 +53,7 @@
 
     // }
     echo '<a class="speurtocht resultMenu">Resultaten nakijken ('.$count[0].')</a>';
-    echo '<a class="speurtocht">Eindresultaten bekijken</a>';
+    echo '<a class="speurtocht" href="/results.php">Eindresultaten bekijken</a>';
     echo '<a class="speurtocht">Deelnemers verwijderen</a>';
     echo '<a class="speurtocht">Speurtocht verwijderen</a>';
     echo '</div>';
