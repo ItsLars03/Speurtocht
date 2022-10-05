@@ -45,7 +45,14 @@
         echo '<a class="speurtocht">Speurtocht starten</a>';
         echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
     }
-    echo '<a class="speurtocht resultMenu">Resultaten nakijken</a>';
+    $queryA = "SELECT COUNT(*) FROM answers LEFT JOIN questions USING (questionId) WHERE scavengerHuntId='$speurtocht_id' AND correct IS NULL";
+    $resultA = mysqli_query($db, $queryA);
+    $count = mysqli_fetch_array($resultA);
+
+    // while ($row = $resultA->fetch_assoc()) {
+
+    // }
+    echo '<a class="speurtocht resultMenu">Resultaten nakijken ('.$count[0].')</a>';
     echo '<a class="speurtocht">Eindresultaten bekijken</a>';
     echo '<a class="speurtocht">Deelnemers verwijderen</a>';
     echo '<a class="speurtocht">Speurtocht verwijderen</a>';

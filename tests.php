@@ -8,6 +8,10 @@
 
     <?php
 
+    echo '<form id="createForm" action="/server/scavengerHunt/create.php" method="POST">';
+    echo '<input type="file" name="images" value=""/><br />';
+    echo '<button type="submit" class="buttonForm" name="uploadImg">Upload</button>';
+    echo '</form>';
     ?>
 
 </div>

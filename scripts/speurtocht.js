@@ -34,7 +34,7 @@ $(document).ready(function(){
         $('.backButton').css("display", "none");
     });
     $(".backButton2").click(function(){
-        window.location.href = '/admin/beheerderpaneel';
+        window.location.href = '/admin/beheerderpaneel.php';
         // $('.backButton').css("display", "none");
     });
     

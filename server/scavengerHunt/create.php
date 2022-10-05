@@ -61,4 +61,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $send = mysqli_query($db, $query);
         header('Location: /admin/speurtochtpaneel.php?id='.$id);
     }
+    // Upload Image
+    // if (isset($_POST['uploadImg'])) {
+        // $filename = $_FILES["images"]["1116586"];
+
+        // $tempname = $_FILES["images"]["1116586"];    
+
+        // $folder = "images/".$filename;   
+        // if (move_uploaded_file($tempname, $folder)) {
+
+        //     $msg = "Image uploaded successfully";
+
+        // }
+        // move_uploaded_file($image["htdocs"], __DIR__ . "/images/" . $image["test"]);
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["uploadImg"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+        }
+    // }
 }
