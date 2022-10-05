@@ -11,7 +11,7 @@
         <input class="login-register-form" name="join" type="text" id="join" placeholder="Invite code"><br><br>
         <input class="login-register-btn" name="submit" type="submit" value="DEELNEMEN">
         <h4> </h4>
-        <a class="elseRegister" href="/login.php">Speurtocht beheerder? Meld je hier aan</a>
+        <a class="elseAdmin" href="/login.php">Speurtocht beheerder? Meld je hier aan</a>
     </form>
 </div>
 
