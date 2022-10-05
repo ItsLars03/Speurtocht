@@ -45,7 +45,7 @@
         echo '<a class="speurtocht">Speurtocht starten</a>';
         echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
     }
-    $queryA = "SELECT COUNT(*) FROM answers LEFT JOIN questions USING (questionId) WHERE scavengerHuntId='$speurtocht_id' AND correct IS NULL";
+    $queryA = "SELECT COUNT(*) FROM answers LEFT JOIN questions USING (questionId) WHERE scavengerHuntId='$scavengerHuntId' AND correct IS NULL";
     $resultA = mysqli_query($db, $queryA);
     $count = mysqli_fetch_array($resultA);
 
