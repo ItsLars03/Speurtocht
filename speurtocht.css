@@ -344,6 +344,9 @@ form {
 .losers {
   color: #fff;
 }
+.noResults{
+  color: #FFE300;
+}
 .scoreboard {
   width: 100%;
   margin: 0 auto;
