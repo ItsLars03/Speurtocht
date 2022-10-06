@@ -84,7 +84,7 @@ router.get("/random/:playerId", async (req, res) => {
         })
 
         res.status(200).json({
-            success: false,
+            success: true,
             data: data[Math.floor(Math.random() * data.length)],
         })
     } catch (error) {
