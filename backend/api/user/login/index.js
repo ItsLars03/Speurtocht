@@ -35,13 +35,15 @@ router.post("/", async (req, res) => {
         console.log(error)
         res.status(500).json({
             success: false,
-            message: error.message?.contains("User_email_key") ? "email already exists." : "Internal server error."
+            message: error.message != null && typeof error.message == "string" && error.message.contains("User_email_key") ? "email already exists." : "Internal server error."
         })
     }
 })
 
 router.get("/", async (req, res) => {
     const { email, password } = req.body
+
+    console.log(password)
 
     if (!emailRegex.test(email)) {
         res.status(500).json({

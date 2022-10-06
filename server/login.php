@@ -24,12 +24,9 @@ $password = $_GET['password'];
 //     $erroCode = 2;
 // };
 
-$hash = password_hash($password, PASSWORD_DEFAULT);
-
-
 $response = API::get("/users/login", [
     "email" => $email,
-    "password" => $hash
+    "password" => $password
 ]);
 
 if (!isset($response) || !isset($response->success) || !$response->success) {

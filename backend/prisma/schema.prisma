@@ -11,7 +11,7 @@ model User {
   userId    String   @id @unique @default(uuid())
   nickname  String?  @db.VarChar(50)
   email     String   @unique @db.VarChar(64)
-  password  String   @db.VarChar(32)
+  password  String   @db.VarChar(128)
   createdAt DateTime @default(now())
 
   scavengerHunt ScavengerHunt[]

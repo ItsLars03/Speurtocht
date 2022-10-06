@@ -6,12 +6,12 @@ const prisma = new PrismaClient()
 const router = Router()
 
 router.post("/send", async (req, res) => {
+    console.log("user", process.env.EMAIL_USER)
     const {
         html = "<html>Hello World</html>",
         text = "Hello World",
         subject = "Mail!",
-        to = "p11k3t@lesonline.nu",
-        from = "p11k3t@lesonline.nu"
+        to = "admin@admin.nl",
     } = req.body
 
     try {
@@ -20,13 +20,13 @@ router.post("/send", async (req, res) => {
             port: 465,
             secure: true, // true for 465, false for other ports
             auth: {
-                user: "p11k3t3@lesonline.nu", // generated ethereal user
-                pass: "e7mUNBssyG", // generated ethereal password
+                user: process.env.EMAIL_USER, // generated ethereal user
+                pass: process.env.EMAIL_PASS, // generated ethereal password
             },
         });
 
         let info = await transporter.sendMail({
-            from, // sender address
+            from: process.env.EMAIL_FROM, // sender address
             to, // list of receivers
             subject, // Subject line
             text, // plain text body

@@ -10,7 +10,7 @@ include('../utils/api.php');
  */
 
 if (!isset($_GET['email']) || !isset($_GET['password'])) {
-    
+
     // header('Location: ../register.php');
     echo "1";
     return;
@@ -18,12 +18,10 @@ if (!isset($_GET['email']) || !isset($_GET['password'])) {
 
 $email = $_GET['email'];
 // $password = $_GET['password'];
-$hash = password_hash($_GET['password'], PASSWORD_DEFAULT);
-
 
 $response = API::post("/users/login", [
     "email" => $email,
-    "password" => $hash
+    "password" => $_GET['password']
 ]);
 
 if (!isset($response) || !isset($response->success) || !isset($response->data) || !$response->success) {
