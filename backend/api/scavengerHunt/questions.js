@@ -76,14 +76,16 @@ router.get("/random/:playerId", async (req, res) => {
         const data = await prisma.questions.findMany({
             where: {
                 answers: {
-                    some: {
-                        playerId,
-                        correct: {
-                            equals: null
-                        }
+                    none: {
+                        playerId
                     }
                 }
             }
+        })
+
+        res.status(200).json({
+            success: false,
+            data: data[Math.floor(Math.random() * data.length)],
         })
     } catch (error) {
         console.error(error)
