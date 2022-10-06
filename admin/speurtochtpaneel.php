@@ -51,7 +51,7 @@
     $count = mysqli_fetch_array($resultA);
 
     echo '<a class="speurtocht resultMenu">Resultaten nakijken ('.$count[0].')</a>';
-    echo '<a class="speurtocht" href="/results.php" >Eindresultaten bekijken</a>';
+    echo '<a class="speurtocht" href="/results.php?id='.$scavengerHuntId.'" >Eindresultaten bekijken</a>';
     echo '<a class="speurtocht">Deelnemers verwijderen</a>';
     echo '<a class="speurtocht">Speurtocht verwijderen</a>';
     echo '</div>';
