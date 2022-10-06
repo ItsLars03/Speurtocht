@@ -69,9 +69,6 @@ router.post("/", async (req, res) => {
 router.route("/image").post(multer().single("image"), async (req, res) => {
     const { questionId, playerId, correct } = req.body
 
-    console.log("body", req.body)
-
-    console.log("file", req.file)
     let path
 
     try {

@@ -36,6 +36,11 @@
         return;
     }
 
+    if (!isset($_COOKIE['player-id']) && str_starts_with($_SERVER['REQUEST_URI'], "/questions")) {
+        header("location: /");
+        return;
+    }
+
     ?>
 
 
