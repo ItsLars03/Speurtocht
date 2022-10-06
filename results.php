@@ -16,6 +16,12 @@ if (!isset($response) || !isset($response->success) || !$response->success) {
 }
 
 $players = $response->data;
+
+if (count($players) == 0) {
+    echo '<div class="scoreboard 2th"> Er zijn op dit moment nog geen resultaten.</div>';
+    return;
+}
+
 usort($players, function ($a, $b) {
     $countA = isset($a) && isset($a->answers) ? count(array_filter($a->answers, function ($v) {
         return isset($v) && isset($v->correct) && $v->correct;
