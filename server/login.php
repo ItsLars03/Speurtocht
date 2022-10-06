@@ -24,12 +24,19 @@ $password = $_GET['password'];
 //     $erroCode = 2;
 // };
 
+$hash = password_hash($password, PASSWORD_DEFAULT);
+
+
 $response = API::get("/users/login", [
     "email" => $email,
-    "password" => $password
+    "password" => $hash
 ]);
 
-password_verify($_POST['password'], $row['password']);
+if (!isset($response) || !isset($response->success) || !$response->success) {
+    //handle error - (server error OR wrong password.)
+    return;
+}
+
 
 setcookie("user-id", $response->data->userId, time() + 60 * 60 * 24 * 14, "/");
 header("location: ../admin/beheerderpaneel.php");
