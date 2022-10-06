@@ -14,27 +14,15 @@
     echo '<button type="submit" class="buttonForm" name="submit">Upload</button>';
     echo '</form>';
 
-    // Get image type (image/jpg, image/png ect).
-    $image_type = $_FILES['image']['type'];
-    // Use explode to extract the type to use in renaming.
-    $type_image = explode('/', $image_type);
-    // Temporary image storage
-    $imagetemp = $_FILES['image']['tmp_name'];
-    // Rename image and add image type.
-    //            \/ Variable here to name file.
-    $imagename = 'abc.'.$type_image[1];
-    // Image path to save image in 
-    $image_path = "images/";
-    if(is_uploaded_file($imagetemp)) {
-        if(move_uploaded_file($imagetemp, $image_path . $imagename)) {
-            echo "Foto upload succesvol";
-            // Path to the image we reuse to display image.
-            $database_path = $image_path.$imagename;
-            $answer_id = uniqid();
-            // Then save path to image(and question information) in database
-            $query_img = "INSERT INTO answers (answerId, questionId, playerId, answer) VALUES ('$answer_id', '3', '0134', '$database_path')";
-            $resultA = mysqli_query($db, $query_img);
-        }
+    if (isset($_FILES['image'])) {
+        $response = API::postFile("/scavengerhunt/answers/image", [
+            "questionId" => "1690a4a7-1431-43a8-a9e6-1b9bbe42c68f",
+            "playerId" => "ad847192-a055-4e12-bcf0-5f4a0478c98c",
+            "correct" => true,
+        ], $_FILES['image']['tmp_name'], $_FILES['image']['type'], $_FILES['image']['name']);
+
+        unset($_FILES);
+        var_dump($response);
     }
     ?>
 </div>
