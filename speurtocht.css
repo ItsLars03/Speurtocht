@@ -154,6 +154,11 @@ form .inputField1 {
   font-size: 28px;
   color: #fff;
 }
+.resultsButton{
+  margin: 0 auto;
+  display: table;
+  margin-top: 50px;
+}
 .speurtochtenBoxMenu {
   width: max-content;
   margin: 0 auto;

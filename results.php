@@ -19,6 +19,7 @@ $players = $response->data;
 
 if (count($players) == 0) {
     echo '<div class="scoreboard 2th"> Er zijn op dit moment nog geen resultaten.</div>';
+    echo '<a class="buttonForm resultsButton" href="/admin/speurtochtpaneel.php?id='. $_GET["id"] .'">Terug naar overzicht</a>';
     return;
 }
 
