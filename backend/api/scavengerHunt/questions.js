@@ -69,5 +69,30 @@ router.put("/:questionId", async (req, res) => {
 
 })
 
+router.get("/random/:playerId", async (req, res) => {
+    const { playerId } = req.params
+
+    try {
+        const data = await prisma.questions.findMany({
+            where: {
+                answers: {
+                    some: {
+                        playerId,
+                        correct: {
+                            equals: null
+                        }
+                    }
+                }
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+})
+
 
 module.exports = router
