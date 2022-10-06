@@ -69,7 +69,7 @@
 
     // }
     echo '<a class="speurtocht resultMenu">Resultaten nakijken (' . $unReadAnswers . ')</a>';
-    echo '<a class="speurtocht" href="/results.php">Eindresultaten bekijken</a>';
+    echo '<a class="speurtocht" href="/results.php">Eindresultaten bekijken</a>'; 
     echo '<a class="speurtocht">Deelnemers verwijderen</a>';
     echo '<a class="speurtocht">Speurtocht verwijderen</a>';
     echo '</div>';
