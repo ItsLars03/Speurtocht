@@ -8,10 +8,20 @@
 
     <?php
 
+
+
+    ?>
+
+    <img src="<?php echo API::$_url . '/scavengerhunt/answers/image/' . '1690a4a7-1431-43a8-a9e6-1b9bbe42c68f/' . 'ad847192-a055-4e12-bcf0-5f4a0478c98c' ?>" crossorigin="anonymous">
+
+    <?php
+
     echo '<form id="createForm" action="tests.php" method="POST" enctype="multipart/form-data">';
     echo '<input type="file" name="image" value="" accept="image/*"><br />';
     echo '<button type="submit" class="buttonForm" name="submit">Upload</button>';
     echo '</form>';
+
+
 
     // $imagename = $_FILES['image']['name'];
 
@@ -46,12 +56,13 @@
         echo "<br>";
 
         $response = API::postFile("/scavengerhunt/answers/image", [
-            "questionId" => "7fd77cf9-aa9a-48fd-b812-d14dd7f8db21",
-            "playerId" => "93d139bf-5522-400b-82fd-8d457598658e",
+            "questionId" => "1690a4a7-1431-43a8-a9e6-1b9bbe42c68f",
+            "playerId" => "ad847192-a055-4e12-bcf0-5f4a0478c98c",
             "correct" => true,
             // "image" => $_FILES['image']["tmp_name"]
         ], $_FILES['image']['tmp_name'], $_FILES['image']['type'], $_FILES['image']['name']);
 
+        unset($_FILES);
         // $image = new CURLFile($_FILES['image']['tmp_name'], $_FILES['image']['type'], $_FILES['image']['name']);
 
         // $curl = curl_init();
@@ -101,5 +112,6 @@
 
 
     ?>
+
 
 </div>

@@ -85,7 +85,6 @@ router.route("/image").post(multer().single("image"), async (req, res) => {
             }
         })
 
-        path = `images/${scavengerHuntId}/${questionId}/${playerId}.${req.file.originalname.split(".").pop()}`
 
         if (!fs.existsSync("images")) {
             fs.mkdirSync("images")
@@ -99,11 +98,9 @@ router.route("/image").post(multer().single("image"), async (req, res) => {
             fs.mkdirSync(`images/${scavengerHuntId}/${questionId}`)
         }
 
-        fs.stat(path, (err, cb) => {
-            console.log("stats", cb)
-        })
+        path = `images/${scavengerHuntId}/${questionId}/${playerId}`
 
-        fs.writeFileSync(`images/${scavengerHuntId}/${questionId}/${playerId}.${req.file.originalname.split(".").pop()}`, req.file.buffer)
+        fs.writeFileSync(path, req.file.buffer)
 
         const data = await prisma.answers.create({
             data: {
@@ -120,7 +117,7 @@ router.route("/image").post(multer().single("image"), async (req, res) => {
         })
     } catch (error) {
         console.error(error)
-        // if (path != null) fs.unlinkSync(path)
+        if (path != null) fs.unlinkSync(path)
         res.status(500).json({
             success: false,
             message: "Internal server error."
@@ -128,6 +125,34 @@ router.route("/image").post(multer().single("image"), async (req, res) => {
     }
 
 })
+
+router.get("/image/:questionId/:playerId", async (req, res) => {
+    const { questionId, playerId } = req.params
+
+    try {
+        const { scavengerHuntId } = await prisma.questions.findFirst({
+            where: {
+                questionId
+            },
+            select: {
+                scavengerHuntId: true
+            }
+        })
+
+        const data = fs.readFileSync(`images/${scavengerHuntId}/${questionId}/${playerId}`)
+        const contentType = getContentType(data)
+
+        res.status(200).set("Content-Type", contentType).send(data)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+})
+
+
 
 router.put("/:answerId", async (req, res) => {
     const { answerId } = req.params
@@ -279,5 +304,24 @@ router.get("/getall/:scavengerHuntId", async (req, res) => {
     }
 
 })
+
+function getContentType(data) {
+
+    const char = Buffer.from(data).toString("base64").charAt(0)
+
+    switch (char) {
+        case "/":
+            return "image/jpeg"
+        case "i":
+            return "image/png"
+        case "R":
+            return "image/gif"
+        case "U":
+            return "image/webp"
+        default:
+            console.log("baseChar: " + char + " was not found!")
+            return null
+    }
+}
 
 module.exports = router
