@@ -19,6 +19,5 @@ if (!isset($response) || !isset($response->success) || !$response->success) {
     return;
 }
 
-
 setcookie("player-id", $response->data->playerId, time() + 60 * 60 * 24 * 14, "/");
 header("Location: /?id=" . $_GET['scavengerhuntid']);

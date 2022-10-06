@@ -109,6 +109,7 @@
 
             foreach ($question->answers as $_answer) {
                 $answer = $_answer;
+                if (isset($answer->correct)) continue;
                 // $question_id = $row['questionId'];
 
                 echo '<form id="checkForm" action="/server/scavengerHunt/create.php" method="POST">';

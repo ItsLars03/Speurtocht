@@ -1,10 +1,11 @@
 <?php include('header.php'); ?>
-<!-- <?php include('../utils/api.php'); ?> -->
+<?php include('./utils/api.php'); ?>
 
 <div class="content">
     <div class="titleBox">
         <h2 class="pageTitle">TEST</h2>
     </div>
+    <img src="<?php echo API::$_url . '/scavengerhunt/answers/image/' . '1690a4a7-1431-43a8-a9e6-1b9bbe42c68f/' . 'ad847192-a055-4e12-bcf0-5f4a0478c98c' ?>" crossorigin="anonymous">
 
     <?php
 
@@ -36,5 +37,4 @@
         }
     }
     ?>
-
 </div>

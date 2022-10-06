@@ -1,13 +1,11 @@
 <?php
 
 
-class API
-{
+class API {
 
     static string $_url = "http://localhost:5001";
 
-    public static function get($uri = "/", $fields)
-    {
+    public static function get($uri = "/", $fields) {
         $url = API::$_url . $uri;
 
         $headers = array(
@@ -35,8 +33,7 @@ class API
         return gettype($result) == "string" ? json_decode($result) : null;
     }
 
-    public static function post($uri = "/", $fields)
-    {
+    public static function post($uri = "/", $fields) {
         $url = API::$_url . $uri;
 
         $headers = array(
@@ -57,8 +54,30 @@ class API
         return gettype($result) == "string" ? json_decode($result) : null;
     }
 
-    public static function delete($uri = "/", $fields)
-    {
+    public static function postFile($uri = "/", $fields = array(), $filePath, $type, $postedFileName) {
+        $url = API::$_url . $uri;
+
+        $image = new CURLFile($filePath, $type, $postedFileName);
+        $fields["image"] = $image;
+
+        $headers = array(
+            'Accept: application/json',
+            'Content-Type: multipart/form-data',
+        );
+
+
+        $ch = curl_init($url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        return gettype($result) == "string" ? json_decode($result) : null;
+    }
+
+    public static function delete($uri = "/", $fields) {
         $url = API::$_url . $uri;
 
         $headers = array(
@@ -79,8 +98,7 @@ class API
         return gettype($result) == "string" ? json_decode($result) : null;
     }
 
-    public static function put($uri = "/", $fields)
-    {
+    public static function put($uri = "/", $fields) {
         $url = API::$_url . $uri;
 
         $headers = array(
