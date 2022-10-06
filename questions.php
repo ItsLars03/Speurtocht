@@ -7,4 +7,9 @@ include("./utils/api.php");
 
 $getQuestionRes = API::get("/scavengerhunt/questions/random/" . $_COOKIE['player-id'], array());
 
+if (!isset($getQuestionRes) || isset($getQuestionRes->success) || !$getQuestionRes->success) {
+    //error.
+    return;
+}
+
 var_dump($getQuestionRes);
