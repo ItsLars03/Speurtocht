@@ -29,7 +29,7 @@ function buildTextInputField($questionId) {
     echo "<textarea name='text-answer'></textarea>";
     echo "<br>";
     echo "<input hidden value='" . $questionId . "' required name='question-id'>";
-    echo "<button type='submit' name='submit'>Inleveren</button>";
+    echo "<button type='submit' class='login-register-btn' name='submit'>Inleveren</button>";
     echo "</form>";
 }
 
