@@ -33,8 +33,8 @@
           File name here
        </div>
     </div>
-    <input id="default-btn" type="file" hidden>';
-    echo "<input type='file' onclick='defaultBtnActive()' class='buttonep' name='image-answer' accept='image/png, image/jpeg'>";
+    <input id="default-btn" type="file">
+    <button type="submit" class="login-register-btn" name="submit">Inleveren</button>"';
     echo "</form>";
 
     echo '
