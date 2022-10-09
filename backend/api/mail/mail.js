@@ -12,6 +12,7 @@ router.post("/send", async (req, res) => {
         text = "Hello World",
         subject = "Mail!",
         to = "admin@admin.nl",
+        scavengerHuntId
     } = req.body
 
     try {
@@ -32,8 +33,19 @@ router.post("/send", async (req, res) => {
             text, // plain text body
             html, // html body
         });
-        res.status(200).json(info)
-        return
+
+        const data = prisma.emails.create({
+            data: {
+                scavengerHuntId,
+                email: to,
+            }
+        })
+
+
+        res.status(200).json({
+            success: true,
+            data
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({
