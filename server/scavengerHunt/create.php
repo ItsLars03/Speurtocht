@@ -67,30 +67,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['startSpeurtocht'])) {
 
         // Insert E-mail into database
-        $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
-        $to = mysqli_real_escape_string($db, $_POST['emails']);
-        $scavengerHuntId = mysqli_real_escape_string($db, $_POST['id']);
-        $email_id = uniqid();
+        // $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
+        // $to = mysqli_real_escape_string($db, $_POST['emails']);
+        // $scavengerHuntId = mysqli_real_escape_string($db, $_POST['id']);
+        // $email_id = uniqid();
 
-        $query = "INSERT INTO emails (emailId, scavengerHuntId, email) VALUES ('$email_id','$scavengerHuntId','$to')";
-        $result = mysqli_query($db, $query);
+        // $query = "INSERT INTO emails (emailId, scavengerHuntId, email) VALUES ('$email_id','$scavengerHuntId','$to')";
+        // $result = mysqli_query($db, $query);
 
         // Send e-mails to submitted e-mailadresses
         // $link = 'localhost/join.php?id='.$email_id;
-        $link = 'localhost/join.php?id={emailId}';        
+        $link = 'localhost/join.php?id={emailId}';
         $mailRes = API::post("/mail/send", [
-            "html" => "<html>Neem via deze link deel aan van de speurtocht! $link</html>",
+            "html" => "<html>Neem via deze link deel aan van de speurtocht! " . $link . "</html>",
             "text" => "Hello World",
             "subject" => "Uitnodiging speurtocht",
-            "to" => "234269@edu.rocfriesepoort.nl",
-            "scavengerHuntId" => "$scavengerHuntId"
+            "to" => "thimosietsma@gmail.com",
+            "scavengerHuntId" => $_POST["id"]
         ]);
+
+
         if (!isset($mailRes) || !isset($mailRes->success) || !$mailRes->success) {
             //Error!
             return;
         }
         $mailId = $mailRes->data->mailId;
 
-        header('Location: /admin/speurtochtpaneel.php?id=' . $scavengerHuntId);
+        header('Location: /admin/speurtochtpaneel.php?id=' . $_POST["id"]);
     }
 }
