@@ -26,12 +26,19 @@ router.post("/send", async (req, res) => {
             },
         });
 
+        const data = await prisma.emails.create({
+            data: {
+                scavengerHuntId,
+                email: to,
+            }
+        })
+
         let info = await transporter.sendMail({
             from: process.env.EMAIL_FROM, // sender address
             to, // list of receivers
             subject, // Subject line
-            text, // plain text body
-            html, // html body
+            text: text.replace("{emailId}", data.emailId), // plain text body
+            html: html.replace("{emailId}", data.emailId), // html body
         });
 
         if (!info.accepted.includes(to)) {
@@ -41,13 +48,6 @@ router.post("/send", async (req, res) => {
             })
             return
         }
-
-        const data = await prisma.emails.create({
-            data: {
-                scavengerHuntId,
-                email: to,
-            }
-        })
 
         res.status(200).json({
             success: true,
