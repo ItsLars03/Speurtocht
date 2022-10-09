@@ -27,24 +27,36 @@ function buildTextInputField($questionId)
 {
     echo "<form action='/server/scavengerHunt/questions/textQuestion.php' method='POST'>";
     echo "<legend>Antwoord:</legend>";
-    echo "<textarea name='text-answer'></textarea>";
+    echo "<textarea class='text-answer' name='text-answer'></textarea>";
     echo "<br>";
     echo "<input hidden value='" . $questionId . "' required name='question-id'>";
-    echo "<button type='submit' class='login-register-btn' name='submit'>Inleveren</button>";
+    echo "<button type='submit' class='login-register-btn deliver' name='submit'>Inleveren</button>";
     echo "</form>";
 }
 
 function buildPhotoInputField($questionId)
 {
+    echo '
+    <img class="img-question" src="backend/images/system_images/upload-an-image.png" id="output"/>
+    <script>
+      var loadFile = function(event) {
+        var output = document.getElementById("output");
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+    </script>';
     echo "<form action='/server/scavengerHunt/questions/photoQuestion.php' method='POST' enctype='multipart/form-data'>";
-    echo "<input type='file' name='image-answer' accept='image/png, image/jpeg'>";
+    echo "<input type='file' onchange='loadFile(event)' name='image-answer' accept='image/png, image/jpeg'>";
     echo "<br>";
     echo "<input hidden value='" . $questionId . "' required name='question-id'>";
-    echo "<button type='submit' name='submit'>Inleveren</button>";
+    echo "<button class='login-register-btn deliver' type='submit' name='submit'>Inleveren</button>";
     echo "</form>";
 }
 
 ?>
+
 <div class="content">
     <div class="titleBox">
         <h2 class="pageTitle">
