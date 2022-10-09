@@ -1,13 +1,13 @@
 <?php
 
-function send_mail($to) {
+function send_mail($to, $link) {
 //The url you wish to send the POST request to
 $url = "http://localhost:5001/mail/send";
 
 //The data you want to send via POST
 $fields = [
-	'subject'      => "Deelnemen aan de speurtocht",
-	'html' 		   => "<html>test</html>",
+	'subject'      => "Uitnodiging speurtocht",
+	'html' 		   => '<html>Neem via deze link deel aan van de speurtocht! '.$link.'</html>',
 	'text'         => '',
 	'to'		   => "$to",
 	'from'		   => "p11k3t@lesonline.nu"

@@ -42,7 +42,7 @@
 
     echo '<div class="speurtochtenBoxMenu">';
     if ($response->data->status == 'CLOSED') {
-        echo '<a class="speurtocht">Speurtocht starten</a>';
+        echo '<a class="speurtocht startMenu">Speurtocht starten</a>';
         echo '<a class="speurtocht AanpassenMenu">Speurtocht aanpassen</a>';
     }
 
@@ -143,6 +143,20 @@
         }
     }
     echo '</div>';
+
+    echo '</div>';
+
+    
+    // SPEURTOCHT START //
+    echo '<div class="speurtochtStart">';
+    echo '<h2>Start speurtocht</h2>';
+    echo '<p class="startText">Vul hieronder de e-mailadressen van de verschillende spelers in.</p>';
+
+    echo '<form id="startForm" action="/server/scavengerHunt/create.php" method="POST">';
+        echo '<input type="hidden" name="id" value="'.$scavengerHuntId.'">';
+        echo '<input class="emailList" type="textarea" name="emails" placeholder="bijv; bob@gmail.com, bart@gmail.com">';
+        echo '<button class="submitStart" type="submit" name="startSpeurtocht">Starten</button>';
+    echo '</form>';
 
     echo '</div>';
 

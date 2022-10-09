@@ -6,7 +6,6 @@
   font-family: 'Poppins', sans-serif;
 }
 html,body{
-  display: grid;
   height: 100%;
   place-items: center;
   text-align: center;

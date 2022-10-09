@@ -176,7 +176,7 @@ form .inputField1 {
   margin: 6px;
   text-align: center;
 }
-.speurtochtStarten,
+.speurtochtStart,
 .speurtochtAanpassen,
 .speurtochtControle,
 .eindresultatenBekijken,
@@ -189,7 +189,7 @@ form .inputField1 {
   margin: 0 auto;
 }
 .speurtochtAanpassen h2,
-.speurtochtStarten h2,
+.speurtochtStart h2,
 .speurtochtControle h2,
 .speurtochtAanpassen input,
 .speurtochtAanpassen label,
@@ -254,6 +254,32 @@ input[type="checkbox"] {
 }
 #editQuestion {
   margin: 36px 0px;
+}
+/*========================================================================
+  Speurtocht start
+/*=======================================================================*/
+.submitStart {
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0);
+  position: relative;
+}
+.startText {
+  margin-top: 18px;
+}
+.emailList {
+  text-align: left;
+  color: #000;
+  font-size: 16px;
+  padding: 6px 0px;
+  width: 240px;
+  display: block;
+  margin: 12px auto;
+  border-bottom: 2px solid #fff;
 }
 /*========================================================================
   Check answers

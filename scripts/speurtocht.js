@@ -28,7 +28,7 @@ $(document).ready(function(){
     $(".backButton").click(function(){
         $('.speurtochtenBoxMenu').css("display", "flex");
         $('.speurtochtAanpassen').css("display", "none");
-        $('.speurtochtStarten').css("display", "none");
+        $('.speurtochtStart').css("display", "none");
         $('.speurtochtControle').css("display", "none");
         $('.backButton2').css("display", "block");
         $('.backButton').css("display", "none");
@@ -42,8 +42,9 @@ $(document).ready(function(){
     // START //
     $(".startMenu").click(function(){
         $('.speurtochtenBoxMenu').css("display", "none");
-        $('.speurtochtStarten').css("display", "block");
+        $('.speurtochtStart').css("display", "block");
         $('.backButton').css("display", "block");
+        $('.backButton2').css("display", "none");
     });
     // AANPASSEN //
     $(".AanpassenMenu").click(function(){

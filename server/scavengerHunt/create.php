@@ -62,4 +62,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         header('Location: /admin/speurtochtpaneel.php?id=' . $id);
     }
+
+    // Start Speurtocht
+    if (isset($_POST['startSpeurtocht'])) {
+
+        // Insert E-mail into database
+        $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
+        $to = mysqli_real_escape_string($db, $_POST['emails']);
+        $scavengerHuntId = mysqli_real_escape_string($db, $_POST['id']);
+        $email_id = uniqid();
+
+        // $query = "INSERT INTO emails (emailId, scavengerHuntId, email) VALUES ('$email_id','$scavengerHuntId','$to')";
+        // $result = mysqli_query($db, $query);
+
+        // Send e-mails to submitted e-mailadresses
+        $link = 'localhost/join.php?id='.$email_id;
+        
+        $mailRes = API::post("/mail/send", [
+            "html" => "<html>Neem via deze link deel aan van de speurtocht! $link</html>",
+            "text" => "Hello World",
+            "subject" => "Uitnodiging speurtocht",
+            "to" => "234269@edu.rocfriesepoort.nl",
+        ]);
+        
+        if (!isset($mailRes) || !isset($mailRes->success) || !$mailRes->success) {
+            //Error!
+            return;
+        }
+        header('Location: /admin/speurtochtpaneel.php?id=' . $scavengerHuntId);
+    }
 }
