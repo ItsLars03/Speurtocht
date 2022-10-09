@@ -34,17 +34,25 @@ router.post("/send", async (req, res) => {
             html, // html body
         });
 
-        const data = prisma.emails.create({
+        if (!info.accepted.includes(to)) {
+            res.status(500).json({
+                success: false,
+                message: "Could not send an email to this email adres."
+            })
+            return
+        }
+
+        const data = await prisma.emails.create({
             data: {
                 scavengerHuntId,
                 email: to,
             }
         })
 
-
         res.status(200).json({
             success: true,
-            data
+            data,
+            info
         })
     } catch (error) {
         console.error(error)
