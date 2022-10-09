@@ -37,7 +37,7 @@ function buildTextInputField($questionId)
 function buildPhotoInputField($questionId)
 {
     echo '
-    <img class="img-question" src="backend/images/system_images/upload-an-image.png" id="output"/>
+    <img class="img-question" src="/upload-an-image.png" id="output"/>
     <script>
       var loadFile = function(event) {
         var output = document.getElementById("output");
