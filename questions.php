@@ -18,12 +18,13 @@ $question = $getQuestionRes->data;
 if (!isset($question)) {
     //handled all questions.
     //TODO: send to next page?
-
     header("Location: /");
+    return;
 }
 
 
-function buildTextInputField($questionId) {
+function buildTextInputField($questionId)
+{
     echo "<form action='/server/scavengerHunt/questions/textQuestion.php' method='POST'>";
     echo "<legend>Antwoord:</legend>";
     echo "<textarea name='text-answer'></textarea>";
@@ -33,7 +34,8 @@ function buildTextInputField($questionId) {
     echo "</form>";
 }
 
-function buildPhotoInputField($questionId) {
+function buildPhotoInputField($questionId)
+{
     echo "<form action='/server/scavengerHunt/questions/photoQuestion.php' method='POST' enctype='multipart/form-data'>";
     echo "<input type='file' name='image-answer' accept='image/png, image/jpeg'>";
     echo "<br>";
