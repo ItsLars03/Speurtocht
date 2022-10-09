@@ -29,7 +29,9 @@ $(document).ready(function(){
         $('.speurtochtenBoxMenu').css("display", "flex");
         $('.speurtochtAanpassen').css("display", "none");
         $('.speurtochtStart').css("display", "none");
+        $('.speurtochtDelete').css("display", "none");
         $('.speurtochtControle').css("display", "none");
+        $('.speurtochtDeelnemer').css("display", "none");
         $('.backButton2').css("display", "block");
         $('.backButton').css("display", "none");
     });
@@ -59,6 +61,20 @@ $(document).ready(function(){
         $('.speurtochtControle').css("display", "block");
         $('.backButton2').css("display", "none");
         $('.backButton').css("display", "block");
+    });
+    // DEELNEMER
+    $(".deelnemerMenu").click(function(){
+        $('.speurtochtenBoxMenu').css("display", "none");
+        $('.speurtochtDeelnemer').css("display", "block");
+        $('.backButton').css("display", "block");
+        $('.backButton2').css("display", "none");
+    });
+    // DELETE //
+    $(".deleteMenu").click(function(){
+        $('.speurtochtenBoxMenu').css("display", "none");
+        $('.speurtochtDelete').css("display", "block");
+        $('.backButton').css("display", "block");
+        $('.backButton2').css("display", "none");
     });
 
     // Prevent both options being selected

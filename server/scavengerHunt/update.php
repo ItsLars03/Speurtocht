@@ -31,6 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return;
         }
 
-        header('Location: /admin/speurtochtpaneel.php?id=' . $updateResponse->data->scavengerHuntId);
+        header('Location: /admin/speurtochtpaneel.php?id=' . $updateResponse->data->scavengerHuntId.'&cssevent=3');
     }
 }

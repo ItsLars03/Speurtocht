@@ -68,11 +68,24 @@
 
     echo '<a class="speurtocht resultMenu">Resultaten nakijken (' . $unReadAnswers . ')</a>';
     echo '<a class="speurtocht" href="/results.php?id=' . $scavengerHuntId . '" >Eindresultaten bekijken</a>';
-    echo '<a class="speurtocht">Deelnemers verwijderen</a>';
-    echo '<a class="speurtocht">Speurtocht verwijderen</a>';
+    if ($response->data->status == 'OPENED') {
+        echo '<a class="speurtocht deelnemerMenu">Deelnemers verwijderen</a>';
+    }
+    echo '<a class="speurtocht deleteMenu">Speurtocht verwijderen</a>';
     echo '</div>';
 
+    // SPEURTOCHT START //
+    echo '<div class="speurtochtStart">';
+    echo '<h2>Start speurtocht</h2>';
+    echo '<p class="startText">Vul hieronder de e-mailadressen van de verschillende spelers in.</p>';
 
+    echo '<form id="startForm" action="/server/scavengerHunt/create.php" method="POST">';
+        echo '<input type="hidden" name="id" value="'.$scavengerHuntId.'">';
+        echo '<input class="emailList" type="textarea" name="emails" placeholder="bijv; bob@gmail.com, bart@gmail.com">';
+        echo '<button class="submitStart" type="submit" name="startSpeurtocht">Starten</button>';
+    echo '</form>';
+
+    echo '</div>';
 
     // SPEURTOCHT AANPASSEN //
     echo '<div class="speurtochtAanpassen">';
@@ -146,20 +159,64 @@
 
     echo '</div>';
 
-    
-    // SPEURTOCHT START //
-    echo '<div class="speurtochtStart">';
-    echo '<h2>Start speurtocht</h2>';
-    echo '<p class="startText">Vul hieronder de e-mailadressen van de verschillende spelers in.</p>';
+    // DEELNEMER DELETE
+    echo '<div class="speurtochtDeelnemer">';
+    echo '<h2>Deelnemers verwijderen</h2>';
 
+    $query = "SELECT * FROM players WHERE scavengerHuntId='$scavengerHuntId'";
+    $result = mysqli_query($db, $query);
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="deelnemer">';
+            echo '<form id="deleteForm" action="/server/scavengerHunt/create.php" method="POST">';
+            echo '<input type="hidden" name="id" value="'.$scavengerHuntId.'">';
+            echo '<input type="hidden" name="playerId" value="'.$row['playerId'].'">';
+                echo '<p>'.$row['name'].' | '.$row['email'].'<button type="submit" class="deleteDeelnemer" name="deleteDeelnemer"> Verwijder </button></p>';
+            echo '</form>';
+        echo '</div>';
+    }
+
+
+    echo '</div>';
+
+    // SPEURTOCHT DELETE //
+    echo '<div class="speurtochtDelete">';
+    echo '<p>Weet je zeker dat je deze speurtocht wilt verwijderen?</p>';
+    
     echo '<form id="startForm" action="/server/scavengerHunt/create.php" method="POST">';
-        echo '<input type="hidden" name="id" value="'.$scavengerHuntId.'">';
-        echo '<input class="emailList" type="textarea" name="emails" placeholder="bijv; bob@gmail.com, bart@gmail.com">';
-        echo '<button class="submitStart" type="submit" name="startSpeurtocht">Starten</button>';
+    echo '<input type="hidden" name="id" value="'.$scavengerHuntId.'">';
+    echo '<button class="submitStart" type="submit" name="deleteSpeurtocht">Verwijderen</button>';
     echo '</form>';
 
     echo '</div>';
 
+
+    if (isset($_GET['cssevent'])) {
+
+    if (str_contains('1', $_GET['cssevent'])) {
+        echo '<script>
+        $(".speurtochtenBoxMenu").css("display", "none");
+        $(".speurtochtDeelnemer").css("display", "block");
+        $(".backButton").css("display", "block");
+        $(".backButton2").css("display", "none");';
+        echo '</script>';
+    }
+    if (str_contains('2', $_GET['cssevent'])) {
+        echo '<script>
+        $(".speurtochtenBoxMenu").css("display", "none");
+        $(".speurtochtControle").css("display", "block");
+        $(".backButton").css("display", "block");
+        $(".backButton2").css("display", "none");';
+        echo '</script>';
+    }
+    if (str_contains('3', $_GET['cssevent'])) {
+        echo '<script>
+        $(".speurtochtenBoxMenu").css("display", "none");
+        $(".speurtochtAanpassen").css("display", "block");
+        $(".backButton").css("display", "block");
+        $(".backButton2").css("display", "none");';
+        echo '</script>';
+    }
+    }
     ?>
 
 </div>

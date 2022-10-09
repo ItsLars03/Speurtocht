@@ -180,8 +180,9 @@ form .inputField1 {
 .speurtochtAanpassen,
 .speurtochtControle,
 .eindresultatenBekijken,
+.speurtochtDeelnemer,
 .deelnemersVerwijderen,
-.speurtochtVerwijderen {
+.speurtochtDelete {
   display: none;
 }
 .speurtochtAanpassen {
@@ -191,6 +192,8 @@ form .inputField1 {
 .speurtochtAanpassen h2,
 .speurtochtStart h2,
 .speurtochtControle h2,
+.speurtochtDelete p,
+.speurtochtDeelnemer h2,
 .speurtochtAanpassen input,
 .speurtochtAanpassen label,
 .speurtochtTitel {
@@ -280,6 +283,28 @@ input[type="checkbox"] {
   display: block;
   margin: 12px auto;
   border-bottom: 2px solid #fff;
+}
+/*========================================================================
+  Deelnemer Delete
+/*=======================================================================*/
+.deelnemer {
+  border: 3px solid #fff;
+  border-radius: 12px;
+  max-width: 50%;
+  margin: 10px auto;
+  padding: 8px;
+}
+.deleteDeelnemer {
+  border: none;
+  background: red;
+  padding: 4px 10px;
+  font-weight: bold;
+  float: right;
+  margin-top: -2px;
+  cursor: pointer;
+}
+#deleteForm {
+  margin-top: 0px;
 }
 /*========================================================================
   Check answers

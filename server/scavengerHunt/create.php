@@ -1,5 +1,6 @@
 <?php
 include('../../utils/api.php');
+include('../../header.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['createSpeurtocht'])) {
         if (!isset($_POST["name"]) || $_POST["name"] == "") {
@@ -45,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 
-        header('Location: /admin/speurtochtpaneel.php?id=' . $response->data->scavengerHuntId);
+        header('Location: /admin/speurtochtpaneel.php?id=' . $response->data->scavengerHuntId.'&cssevent=3');
     }
 
     // Check answer
@@ -60,39 +61,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return;
         }
 
-        header('Location: /admin/speurtochtpaneel.php?id=' . $id);
+        header('Location: /admin/speurtochtpaneel.php?id=' . $id.'&cssevent=2');
     }
 
     // Start Speurtocht
     if (isset($_POST['startSpeurtocht'])) {
+        $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
+        $to = mysqli_real_escape_string($db, $_POST['emails']);
+        $id = $_POST["id"];
+        // Set speurtocht to OPEN
+        $query = "UPDATE scavengerhunt SET status='OPENED' WHERE scavengerHuntId='$id'";
+        $result = mysqli_query($db, $query);
 
-        // Insert E-mail into database
-        // $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
-        // $to = mysqli_real_escape_string($db, $_POST['emails']);
-        // $scavengerHuntId = mysqli_real_escape_string($db, $_POST['id']);
-        // $email_id = uniqid();
-
-        // $query = "INSERT INTO emails (emailId, scavengerHuntId, email) VALUES ('$email_id','$scavengerHuntId','$to')";
-        // $result = mysqli_query($db, $query);
-
-        // Send e-mails to submitted e-mailadresses
-        // $link = 'localhost/join.php?id='.$email_id;
-        $link = 'localhost/join.php?id={emailId}';
-        $mailRes = API::post("/mail/send", [
-            "html" => "<html>Neem via deze link deel aan van de speurtocht! " . $link . "</html>",
-            "text" => "Hello World",
-            "subject" => "Uitnodiging speurtocht",
-            "to" => "thimosietsma@gmail.com",
-            "scavengerHuntId" => $_POST["id"]
-        ]);
+        $emails = explode(", ", $to);
+        // For each email that was submitted.
+        foreach($emails as $i =>$key) {
+            // Send e-mails to submitted e-mailadresses
+            $link = 'localhost/join.php?id={emailId}';
+            $mailRes = API::post("/mail/send", [
+                "html" => "<html>Neem via deze link deel aan van de speurtocht! " . $link . "</html>",
+                "text" => "Hello World",
+                "subject" => "Uitnodiging speurtocht",
+                "to" => "$key",
+                "scavengerHuntId" => $_POST["id"]
+            ]);
 
 
-        if (!isset($mailRes) || !isset($mailRes->success) || !$mailRes->success) {
-            //Error!
-            return;
+            if (!isset($mailRes) || !isset($mailRes->success) || !$mailRes->success) {
+                //Error!
+                return;
+            }
+            $mailId = $mailRes->data->mailId;
         }
-        $mailId = $mailRes->data->mailId;
 
-        header('Location: /admin/speurtochtpaneel.php?id=' . $_POST["id"]);
+        header('Location: /admin/speurtochtpaneel.php?id='.$_POST["id"]);
     }
+    // Delete deelnemer
+    if (isset($_POST['deleteDeelnemer'])) {
+        $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
+        $player_id = mysqli_real_escape_string($db, $_POST['playerId']);
+        $id = mysqli_real_escape_string($db, $_POST['id']);
+        // Delete query
+        $query = "DELETE FROM players WHERE playerId='$player_id'";
+        $result = mysqli_query($db, $query);
+
+        header('Location: /admin/speurtochtpaneel.php?id='.$id.'&cssevent=1');
+    }
+    // Delete speurtocht
+    if (isset($_POST['deleteSpeurtocht'])) {
+        $db = mysqli_connect('localhost', 'root', '', 'speurtocht');
+        $scavengerHuntId = mysqli_real_escape_string($db, $_POST['id']);
+        // Delete query.
+        $query = "DELETE FROM scavengerhunt WHERE scavengerHuntId='$scavengerHuntId'";
+        $result = mysqli_query($db, $query);
+
+        header('Location: /admin/beheerderpaneel.php');
+    }
+
+    
 }
