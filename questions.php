@@ -8,7 +8,6 @@ include("./utils/api.php");
 $getQuestionRes = API::get("/scavengerhunt/questions/random/" . $_COOKIE['player-id'], array());
 if (!isset($getQuestionRes) || !isset($getQuestionRes->success) || !$getQuestionRes->success) {
     //error.
-    echo "error!";
     return;
 }
 
@@ -18,7 +17,15 @@ $question = $getQuestionRes->data;
 if (!isset($question)) {
     //handled all questions.
     //TODO: send to next page?
-    header('Location: results.php?id='.$getQuestionRes->data->scavengerHuntId);
+
+    $playerRes = API::get("/scavengerhunt/players/player/" . $_COOKIE['player-id'], array());
+    if (!isset($playerRes) || !isset($playerRes->success) || !$playerRes->success) {
+        //error.
+        return;
+    }
+
+
+    header('Location: results.php?id=' . $playerRes->data->scavengerHuntId);
     return;
 }
 

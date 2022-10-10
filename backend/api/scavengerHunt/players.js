@@ -166,4 +166,27 @@ router.delete("/:playerId", async (req, res) => {
     }
 })
 
+router.get("/player/:playerId", async (req, res) => {
+    const { playerId } = req.params
+
+    try {
+        const data = await prisma.players.findFirst({
+            where: {
+                playerId
+            },
+        })
+
+        res.status(200).json({
+            success: true,
+            data
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        })
+    }
+})
+
 module.exports = router
