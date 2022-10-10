@@ -147,8 +147,12 @@
                 // echo '<input type="hidden" value="' . $answer->playerId . '" name="playerId">';
                 echo '<input type="hidden" value="' . $answer->answerId . '" name="answerId">';
                 echo '<p class="item player"><span>Speler/Groep:</span> ' . $answer->playerId . '</p>';
-                echo '<textarea class="item awnser" readonly>' . $answer->answer . '</textarea>';
-
+                if ($question->type == "PHOTO") {
+                    $url = API::$_url . "/scavengerhunt/answers/image/" . $question->questionId . "/" . $answer->playerId;
+                    echo '<img src="' . $url . '" crossorigin="anonymous">';
+                } else {
+                    echo '<textarea class="item awnser" readonly>' . $answer->answer . '</textarea>';
+                }
                 echo '<button class="check good" type="submit" name="correcting-answer-good"> Goed </button>';
                 echo '<button class="check wrong" type="submit" name="correcting-answer-wrong"> Fout </button>';
                 echo '</form>';
