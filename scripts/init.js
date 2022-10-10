@@ -24,7 +24,6 @@ const makeRequest = async (uri, method, data) => {
     }
 }
 
-
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

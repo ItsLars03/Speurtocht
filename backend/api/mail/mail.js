@@ -33,12 +33,13 @@ router.post("/send", async (req, res) => {
             }
         })
 
+
         let info = await transporter.sendMail({
             from: process.env.EMAIL_FROM, // sender address
             to, // list of receivers
             subject, // Subject line
-            text: text.replace("{emailId}", data.emailId), // plain text body
-            html: html.replace("{emailId}", data.emailId), // html body
+            text: text.replace("{emailId}", data.emailId).replace("{host}", process.env.HOST), // plain text body
+            html: html.replace("{emailId}", data.emailId).replace("{host}", process.env.HOST), // html body
         });
 
         if (!info.accepted.includes(to)) {

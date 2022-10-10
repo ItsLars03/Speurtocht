@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // For each email that was submitted.
         foreach ($emails as $i => $key) {
             // Send e-mails to submitted e-mailadresses
-            $link = 'localhost/join.php?id={emailId}';
+            $link = '{host}/join.php?id={emailId}';
             $mailRes = API::post("/mail/send", [
                 "html" => "<html>Neem via deze link deel aan van de speurtocht! " . $link . "</html>",
                 "text" => "Hello World",
