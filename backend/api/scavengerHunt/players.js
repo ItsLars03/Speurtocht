@@ -8,39 +8,39 @@ const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
 
 
 //get specific player
-router.get("/:playerId", async (req, res) => {
-    const { playerId } = req.params
+// router.get("/:playerId", async (req, res) => {
+//     const { playerId } = req.params
 
-    try {
+//     try {
 
-        const data = await prisma.players.findFirst({
-            where: {
-                playerId
-            }
-        })
+//         const data = await prisma.players.findFirst({
+//             where: {
+//                 playerId
+//             }
+//         })
 
-        if (data == null) {
-            res.status(404).json({
-                success: false,
-                message: "Player has not been found."
-            })
-            return
-        }
+//         if (data == null) {
+//             res.status(404).json({
+//                 success: false,
+//                 message: "Player has not been found."
+//             })
+//             return
+//         }
 
-        res.status(200).json({
-            success: true,
-            data
-        })
-    } catch (error) {
-        console.error(error)
-        res.status(500).json({
-            success: false,
-            message: "Internal server error."
-        })
-    }
+//         res.status(200).json({
+//             success: true,
+//             data
+//         })
+//     } catch (error) {
+//         console.error(error)
+//         res.status(500).json({
+//             success: false,
+//             message: "Internal server error."
+//         })
+//     }
 
 
-})
+// })
 
 //get all players
 router.get("/", async (req, res) => {

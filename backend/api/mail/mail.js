@@ -52,7 +52,7 @@ router.post("/send", async (req, res) => {
         res.status(200).json({
             success: true,
             data,
-            info
+            info: { message: "not sending email right now." }
         })
     } catch (error) {
         console.error(error)

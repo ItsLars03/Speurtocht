@@ -424,5 +424,19 @@ form {
   height:160px;
 }
 /*========================================================================
-  Pop-ups
+  Questions page
 /*=======================================================================*/
+.img-question {
+  height: 200px;
+  border-style: solid;
+  color: white;
+  border-radius: 10px;
+  border-width: 2px;
+  width: 320px;
+}
+.deliver{
+  margin-top: 4%;
+}
+.text-answer{
+  height: 120px;
+}
