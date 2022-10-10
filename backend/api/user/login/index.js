@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const router = Router()
 
-const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 router.post("/", async (req, res) => {
 
