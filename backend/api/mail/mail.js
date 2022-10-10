@@ -33,21 +33,21 @@ router.post("/send", async (req, res) => {
             }
         })
 
-        // let info = await transporter.sendMail({
-        //     from: process.env.EMAIL_FROM, // sender address
-        //     to, // list of receivers
-        //     subject, // Subject line
-        //     text: text.replace("{emailId}", data.emailId), // plain text body
-        //     html: html.replace("{emailId}", data.emailId), // html body
-        // });
+        let info = await transporter.sendMail({
+            from: process.env.EMAIL_FROM, // sender address
+            to, // list of receivers
+            subject, // Subject line
+            text: text.replace("{emailId}", data.emailId), // plain text body
+            html: html.replace("{emailId}", data.emailId), // html body
+        });
 
-        // if (!info.accepted.includes(to)) {
-        //     res.status(500).json({
-        //         success: false,
-        //         message: "Could not send an email to this email adres."
-        //     })
-        //     return
-        // }
+        if (!info.accepted.includes(to)) {
+            res.status(500).json({
+                success: false,
+                message: "Could not send an email to this email adres."
+            })
+            return
+        }
 
         res.status(200).json({
             success: true,

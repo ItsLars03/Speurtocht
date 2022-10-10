@@ -1,11 +1,6 @@
 const BACKEND = "http://localhost:5001"
 
-const socketConnected = false
-
 const socket = io(":5002/")
-
-
-
 
 const makeRequest = async (uri, method, data) => {
     try {
@@ -50,7 +45,6 @@ console.log("COOKIES:",)
 
 socket.on("connection", () => {
     console.log("Connected!")
-    socketConnected = true
 })
 
 console.log("emitting...")
