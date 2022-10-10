@@ -13,6 +13,9 @@ label {
   text-decoration: none;
   word-wrap: break-word;
 }
+img {
+  max-width: 100%;
+}
 span {
   font-weight: bold;
 }
