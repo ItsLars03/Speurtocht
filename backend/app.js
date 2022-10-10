@@ -23,7 +23,10 @@ app.use(api)
 
 io.on("connection", (socket) => {
     console.log("socket has been connected!", socket.id)
-    socket.emit("test!", "TEST!")
+    // socket.emit("test!", "TEST!")
+    socket.on("socket-data", (data) => {
+        console.log("[SOCKET-DATA]", data)
+    })
 })
 
 
