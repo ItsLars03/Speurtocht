@@ -18,7 +18,7 @@ $question = $getQuestionRes->data;
 if (!isset($question)) {
     //handled all questions.
     //TODO: send to next page?
-    header("Location: /");
+    header('Location: results.php?id='.$getQuestionRes->data->scavengerHuntId);
     return;
 }
 

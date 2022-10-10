@@ -189,7 +189,7 @@
 
     echo '</div>';
 
-
+    // When returning from external php documents to execute forms, reopen the tabs the user left of at.
     if (isset($_GET['cssevent'])) {
 
     if (str_contains('1', $_GET['cssevent'])) {
