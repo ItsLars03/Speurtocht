@@ -73,8 +73,23 @@ router.get("/random/:playerId", async (req, res) => {
     const { playerId } = req.params
 
     try {
+        const playerData = await prisma.players.findFirst({
+            where: {
+                playerId
+            }
+        })
+
+        if (!playerData) {
+            res.status(404).json({
+                success: false,
+                message: "Could not find the specified player."
+            })
+            return
+        }
+
         const data = await prisma.questions.findMany({
             where: {
+                scavengerHuntId: playerData.scavengerHuntId,
                 answers: {
                     none: {
                         playerId
